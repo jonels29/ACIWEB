@@ -1,4 +1,13 @@
 <script type="text/javascript">
+
+ // ********************************************************
+// * Aciones cuando la pagina ya esta cargada
+// ********************************************************
+$(window).load(function(){
+
+$('#ERROR').hide();
+
+});
 	
 $(document).ready(function() {
     if (location.hash) {
@@ -8,6 +17,7 @@ $(document).ready(function() {
         location.hash = this.getAttribute("href");
     });
 });
+
 $(window).on("myTab", function() {
     var anchor = location.hash || $("a[data-toggle='tab']").first().attr("href");
     $("a[href='" + anchor + "']").tab("show");
@@ -247,7 +257,6 @@ echo '<script> alert("Se ha actualizado los detalles con exito","ok"); window.op
 
 
 }
-
 //////LLAMADAS DE DATOS
 
 //RECUPERO INFO DE CUENTAS GL
@@ -347,6 +356,11 @@ unset($_POST);
 
 ?>	
 <div class="page col-xs-12">
+
+<!--INI DIV ERRO-->
+<div id="ERROR" class="alert alert-danger"></div>
+<!--INI DIV ERROR-->
+
 
 <div  class="col-xs-12">
 <!-- contenido -->
@@ -666,23 +680,23 @@ unset($_POST);
         
 		<div class="col-lg-2">
 		<fieldset>
-		<label>Cta. MG/CxP</label> <input type="number" step="1" name="cta_gl_cxp" class='numb' value="<?php echo $CTA_CXP; ?>" />
+		<label>Cta. MG/CxP</label> <input type="text"  name="cta_gl_cxp" id="cta_gl_cxp" onkeyup="check_num(this.value,'cta_gl_cxp');"  class='numb' value="<?php echo $CTA_CXP; ?>" />
         </fieldset> 
 		</div>
 		<div class="col-lg-2">
 		<fieldset>
-		<label>Cta. MG/Compras</label> <input type="number" step="1" name="cta_gl_pur" class='numb' value="<?php echo $CTA_PUR; ?>" />
+		<label>Cta. MG/Compras</label> <input type="text"  name="cta_gl_pur" id="cta_gl_pur" onkeyup="check_num(this.value,'cta_gl_pur');" class='numb' value="<?php echo $CTA_PUR; ?>" />
         </fieldset> 
 		</div>
 		<div class="col-lg-2">
 		<fieldset>
-		<label>Cta. MG/ITBMS</label> <input type="number" step="1" name="cta_gl_tax" class='numb' value="<?php echo $CTA_TAX; ?>" />
+		<label>Cta. MG/ITBMS</label> <input type="text"  name="cta_gl_tax" id="cta_gl_tax" onkeyup="check_num(this.value,'cta_gl_tax');" class='numb' value="<?php echo $CTA_TAX; ?>" />
         </fieldset> 
 		</div>
 		<div class="col-lg-2">
 		<fieldset>          
           
-            <label>Cta. Contra partida: </label><input type="number" min='0' max='9999' id="Glacct" name="Glacct" value="<?php echo $CTA_GLACCT; ?>"/>
+            <label>Cta. MG/Contra partida: </label><input type="text" onkeyup="check_num(this.value,'Glacct');"  id="Glacct" name="Glacct" value="<?php echo $CTA_GLACCT; ?>"/>
          </fieldset>
 		</div>
 

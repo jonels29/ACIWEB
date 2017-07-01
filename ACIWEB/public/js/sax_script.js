@@ -23,7 +23,6 @@ document.getElementById("allDocument").style.visibility = "visible";
 
 
 
-
 });
 
 
@@ -644,6 +643,7 @@ msg(2);
 // ********************************************************
 // * CHECA ERRORES DE BASE DE DATOS
 // ********************************************************
+
 function  CHECK_DB_ERROR(){
 
 $err = 0;
@@ -666,20 +666,7 @@ $err = 0;
             }
 
       });
-
-   /*   $.ajax({
-             type: "GET",
-             url: '/public/LOG_ERROR/rm_log.php',
-             success: function(res){
-
-                      console.log(res);
-                
-                      }
-              });*/
-
-
-
-          });
+  });
 
 return $err;
 }
@@ -782,7 +769,6 @@ return true;
 // ********************************************************
 // * location management
 // ********************************************************
-
 
 function FILTER(URL){
 
@@ -933,4 +919,41 @@ var datos ='url=bridge_query/set_location/'+ALMACEN+'/'+locationAL;
 
  }
 
+// ********************************************************
+// * checa si el valor introducido es numerico , permite "-"
+// ********************************************************
+function check_num(value,id)
+{
+$('#ERROR').hide();
 
+var ID_LABLE = id;
+var val = value.slice(-1);
+
+var patt = new RegExp("-");
+var sing = patt.test( val );
+
+
+if (isNaN(val)) 
+{
+
+  if(sing==false) {
+    
+        document.getElementById( ID_LABLE ).value  = value.slice(0,-1);
+        MSG_ERROR("La entrada debe ser valores numericos", 0 );
+        
+        return false;
+      }
+
+}
+  
+
+
+  if (val.length > 10) 
+  {
+    document.getElementById( ID_LABLE ).value  = value.slice(0,-1);
+    MSG_ERROR("La entrada de CANTIDAD no debe ser mayor a 18 digitos",0);
+    
+    return false;
+  }
+
+}
