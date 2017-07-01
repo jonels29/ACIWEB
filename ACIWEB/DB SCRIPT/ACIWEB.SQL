@@ -737,7 +737,8 @@ CREATE TABLE IF NOT EXISTS `SalesOrder_Header_Imp` (
   `ShipToCity` varchar(20) DEFAULT NULL,
   `ShipToState` varchar(2) DEFAULT NULL,
   `ShipToZip` varchar(12) DEFAULT NULL,
-  `ShipToCountry` varchar(15) DEFAULT NULL
+  `ShipToCountry` varchar(15) DEFAULT NULL,
+  `SalesRepID` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 DROP TRIGGER IF EXISTS `SalesOrder_OnError`;
 DELIMITER $$
