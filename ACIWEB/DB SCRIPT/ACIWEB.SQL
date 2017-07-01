@@ -147,6 +147,15 @@ CREATE TABLE IF NOT EXISTS `FAC_DET_CONF` (
   `ID_compania` int(11) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
+
+DROP TABLE IF EXISTS `Sales_Representative_Exp`;
+CREATE TABLE IF NOT EXISTS `Sales_Representative_Exp` (
+  `SalesRepID`  varchar(20) NOT NULL,
+  `SalesRep_Name` varchar(55) DEFAULT NULL,
+  `ID_compania` bigint(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
 DROP TABLE IF EXISTS `InventoryAdjust_Imp`;
 CREATE TABLE IF NOT EXISTS `InventoryAdjust_Imp` (
   `ItemID` varchar(20) CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT NULL,
