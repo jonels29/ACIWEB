@@ -62,29 +62,23 @@ class Model
 /**
 * test connetion BD
 */ 
-
-      public function ConexionSage(){
+public function ConexionSage(){
 
         $connected= $this->Query_value('CompanySession','isConnected','order by LAST_CHANGE DESC limit 1');
 
-        
+        if ($connected==0) {
 
-            if ($connected==0) {
-             
-                $status ="<script>alert('El sistema se encuentra desconectado de SageConnect, Por favor verifique la conexion del conector');</script><img width='15px' src='img/Stop.png' /> No conectado a Sage";
+            $status = 0;
 
-            }else{  
+        }else{
 
-                $status ="<img width='15px' src='img/Check.png' /> Conectado a ".$this->Query_value('CompanySession','CompanyNameSage50','order by LAST_CHANGE DESC  limit 1');
+            $status = 1;
 
+        }
+     
+return $status;
 
-
-            }
-
-           
-            return $status;
-
-            }
+}
 
 
 
@@ -340,20 +334,34 @@ if($temp_url!=''){
 
 $url = str_replace('@',  '/', $temp_url);
 
-echo '<script>self.location="'.URL.'index.php?url='.$url.'";</script>';
+  
+ echo '<script>self.location="'.URL.'index.php?url='.$url.'";</script>';
 
 
 }else{
 
- echo '<script>self.location="'.URL.'index.php?url=home/index";</script>';
-   
-}
+   $conn = $this->ConexionSage();
+
+
+        if($conn==0){
+
+         echo '<script>
+                   alert("Advertencia: El sistema se encuentra desconectado de SageConnect, Por favor verificar");
+                   self.location="'.URL.'index.php?url='.$url.'";
+                  </script>';
+
+        }else{
+
+         echo '<script>self.location="'.URL.'index.php?url=home/index";</script>';
+           
+        }
 
 
 } 
+
 }
 
-
+}
 
 
 public function verify_session(){
@@ -370,6 +378,7 @@ public function verify_session(){
           
 
           $res = '1';
+
             echo '<script>self.location ="index.php?url=db_config/index/'.$msg.'";</script>';
 
 
