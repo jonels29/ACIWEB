@@ -49,7 +49,7 @@ echo '<input type="hidden" id="FAC_DET_CONF" value="" />';
     <legend><h4>Informacion General</h4></legend>
         
         <div class="col-lg-12"> 
-         <div class="col-lg-6">
+         <div class="col-lg-3">
          <fieldset>
       <p><strong>Cliente</strong></p>
         
@@ -71,6 +71,31 @@ echo '<input type="hidden" id="FAC_DET_CONF" value="" />';
       </select> 
      </fieldset>
          </div>
+
+      <div class="col-lg-3">
+         <fieldset>
+      <p><strong>Representante de ventas</strong></p>
+        
+      <select  id="salesrep" name="salesrep" class="select col-lg-8"  required>
+
+        <option selected disabled></option>
+
+        <?php  
+        $srep = $this->model-> get_SalesRepre(); 
+
+        foreach ($srep as $datos) {
+                                  
+        $srep_INF = json_decode($datos);
+        echo '<option value="'.$srep_INF->{'SalesRepID'}.'" >'.$srep->{'SalesRep_Name'}."</option>";
+
+        }
+        ?>
+                    
+      </select> 
+     </fieldset>
+         </div>
+
+
          <div class="col-lg-3" >
          <fieldset>
            <p><strong>Entrega a:</strong></p>
@@ -896,7 +921,9 @@ alert('El precio del producto no debe ser menor a 0');
              var total=$("#total").val();
              var Ordertax =$("#tax").val();
 
-            var TaxID=$("#taxid option:selected").html();  //ultimo cambio
+             var TaxID=$("#taxid option:selected").html();  //ultimo cambio
+
+             var salesrepre = $("#salesrep").val(); 
 
 
             URL = document.getElementById('URL').value;
@@ -908,7 +935,7 @@ alert('El precio del producto no debe ser menor a 0');
         //REGITRO DE CABECERA
           function set_header(){
 
-              var datos= "url=bridge_query/set_sales_order_header/"+ID_compania+'/'+CustomerID+'/'+Subtotal+'/'+TaxID+'/'+total+'/'+user+'/'+nopo+'/'+termino_pago+'/'+tipo_licitacion+'/'+observaciones+'/'+entrega+'/'+Ordertax;
+              var datos= "url=bridge_query/set_sales_order_header/"+ID_compania+'/'+CustomerID+'/'+Subtotal+'/'+TaxID+'/'+total+'/'+user+'/'+nopo+'/'+termino_pago+'/'+tipo_licitacion+'/'+observaciones+'/'+entrega+'/'+Ordertax+'/'+salesrepre;
 
               var link= URL+"index.php";
 

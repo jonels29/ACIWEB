@@ -1097,7 +1097,9 @@ var r = confirm('Desea procesar la orden?');
 
                 '/'+entrega+
 
-                '/'+Ordertax;
+                '/'+Ordertax+
+
+                '/'; //AQUI DEBE IR SALESREPID
 
       return  $.ajax({
 

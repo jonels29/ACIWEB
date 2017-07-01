@@ -540,6 +540,16 @@ return $res;
 
 }
 
+public function get_SalesRepre(){
+
+$query='SELECT * FROM Sales_Representative_Exp where  ID_compania="'.$this->id_compania.'" order by SalesRepID ASC';
+
+$res = $this->Query($query);
+
+return $res;
+
+}
+
 public function get_VendorList(){
 
 $query='SELECT * FROM Vendors_Exp where  ID_compania="'.$this->id_compania.'"';

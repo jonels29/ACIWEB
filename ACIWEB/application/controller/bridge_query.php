@@ -560,7 +560,7 @@ echo $this->model->Get_SO_No();
 
 
 
-public function set_sales_order_header($ID_compania,$CustomerID,$Subtotal,$TaxID,$Net_due,$user,$nopo,$pago,$licitacion,$observaciones,$entrega,$ordertax){
+public function set_sales_order_header($ID_compania,$CustomerID,$Subtotal,$TaxID,$Net_due,$user,$nopo,$pago,$licitacion,$observaciones,$entrega,$ordertax,$salesrep){
 $this->SESSION();
 
 $id_compania = $this->model->id_compania;
