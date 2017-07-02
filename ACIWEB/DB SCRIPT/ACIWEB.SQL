@@ -932,7 +932,7 @@ INSERT INTO `sax_company_sage` (`ID`, `id_compania`, `reference`, `onoff`) VALUE
 
 DROP TABLE IF EXISTS `SAX_USER`;
 CREATE TABLE IF NOT EXISTS `SAX_USER` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) COLLATE utf8_spanish_ci NOT NULL,
   `lastname` varchar(255) COLLATE utf8_spanish_ci NOT NULL,
   `email` varchar(255) COLLATE utf8_spanish_ci NOT NULL,
@@ -944,6 +944,9 @@ CREATE TABLE IF NOT EXISTS `SAX_USER` (
   `role_purc` int(11) NOT NULL,
   `role_fiel` int(11) NOT NULL DEFAULT '0',
   `mod_price` int(11) NOT NULL DEFAULT '0',
+  `inv_view` int(11) NOT NULL DEFAULT '0',
+  `rep_view` int(11) NOT NULL DEFAULT '0',
+  `stoc_view` int(11) NOT NULL DEFAULT '0',
   `last_login` timestamp NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
