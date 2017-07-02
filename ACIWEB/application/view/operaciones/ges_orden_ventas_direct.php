@@ -863,13 +863,6 @@ if($pice_mod_ck!=1){ ?>
 
       <th width="10%" >Item ID
 
-<!--       <select id="check_val" onchange="init(this.value);">
-
-      <option value="1" >Renglon</option>
-
-      <option value="2" >Codigo</option> 
-
-      </select> -->
 
       </th>
 

@@ -4926,7 +4926,7 @@ if($ID==''){ echo "0"; }else{ echo "1"; }
 
 public function get_product_byLevel($ID_cust){
 
-$ID_cust = 1 ;
+
 
 $this->SESSION();
 

@@ -226,7 +226,7 @@ var link= URL+"index.php";
 <div class="col-lg-6" >
 	
 <fieldset>
-<legend>Orden de Salida</legend>
+<legend><h4>Detalle</h4></legend>
 
 <input type="hidden" id='user' value="<?php echo $active_user_id; ?>" />
 
@@ -239,7 +239,7 @@ var link= URL+"index.php";
 
 <div  class="col-lg-1"></div>
   <div   class="col-lg-5">
-  <label> Fecha : </label><input style="float:right; text-align: center;" class="input-control" name="date" id="date" value="<?php echo date("Y-m-d"); ?>" /></label>
+  <label> Fecha : </label><input style="float:right; text-align: center;" class="input-control" name="date" id="date" value="<?php echo date("Y-m-d"); ?>" readonly/></label>
   </div>
 
 </div>

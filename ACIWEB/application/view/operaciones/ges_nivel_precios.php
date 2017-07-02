@@ -65,13 +65,13 @@ function set_div(val){
 
 <div  class="col-lg-12">
 <!-- contenido -->
-<h2>Carga de Lista de Precios</h2>
+<h2>Lista de Precios</h2>
 <div class="title col-lg-12"></div>
 
 <div class="col-lg-12">
 
 <fieldset>
-<LEGEND>Crear lista de Precios</LEGEND>
+<LEGEND>Cargar lista</LEGEND>
 
 	<form action="" role="form" class="form-horizontal" enctype="multipart/form-data" method="POST">
 
