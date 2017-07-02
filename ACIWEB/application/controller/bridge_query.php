@@ -560,7 +560,7 @@ echo $this->model->Get_SO_No();
 
 
 
-public function set_sales_order_header($ID_compania,$CustomerID,$Subtotal,$TaxID,$Net_due,$user,$nopo,$pago,$licitacion,$observaciones,$entrega,$ordertax,$salesrep){
+public function set_sales_order_header($CustomerID,$Subtotal,$TaxID,$Net_due,$user,$nopo,$pago,$licitacion,$observaciones,$entrega,$ordertax,$salesrep){
 $this->SESSION();
 
 $id_compania = $this->model->id_compania;
@@ -4926,7 +4926,7 @@ if($ID==''){ echo "0"; }else{ echo "1"; }
 
 public function get_product_byLevel($ID_cust){
 
-  $ID_cust = 1 ;
+$ID_cust = 1 ;
 
 $this->SESSION();
 
@@ -4934,7 +4934,7 @@ $Item =  $this->model->get_ProductsList();
 
 echo '<script>var table =  $("#products").dataTable({
         aLengthMenu: [
-        [20, 25,50,-1], [20, 25, 50,"All"]
+        [10,20, 25,50,-1], [10,20, 25, 50,"All"]
               ]
             });
 
@@ -4943,7 +4943,7 @@ echo '<script>var table =  $("#products").dataTable({
 {column_number : 2},
 ]);</script>
 
-<table id="products" class="table table-striped" cellspacing="0"  >
+<table id="products" class="table table-striped table-bordered" cellspacing="0"  >
             <thead>
               <tr>
                 <th width="5%"></th>
