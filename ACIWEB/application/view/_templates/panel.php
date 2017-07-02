@@ -1,4 +1,4 @@
-<script type="text/javascript">
+ <script type="text/javascript">
 $(window).load(function(){
 $('[data-submenu]').submenupicker();
 });
@@ -14,13 +14,95 @@ foreach ($MOD_MENU as $value) {
 
 $value = json_decode($value);
 
-if($value->{'mod_sales'}=='1'){ $mod_sales_CK = 'checked'; }else{ $mod_sales_CK = '';  }
-if($value->{'mod_fact'}=='1'){ $mod_fact_CK  = 'checked'; }else{ $mod_fact_CK = '';  }
-if($value->{'mod_invt'}=='1'){ $mod_invt_CK = 'checked'; }else{ $mod_invt_CK  = '';  }
-if($value->{'mod_rept'}=='1'){ $mod_rept_CK = 'checked'; }else{ $mod_rept_CK = '';  }
-if($value->{'mod_stock'}=='1'){ $mod_stoc_CK = 'checked'; }else{ $mod_stoc_CK = '';  }
+if($value->{'mod_sales'}=='1'){ $mod_sales_CK = 'checked';  }else{ $mod_sales_CK = '';   }
+if($value->{'mod_fact'}=='1') { $mod_fact_CK  = 'checked';  }else{ $mod_fact_CK  = '';   }
+if($value->{'mod_invt'}=='1') { $mod_invt_CK  = 'checked';  }else{ $mod_invt_CK  = '';   }
+if($value->{'mod_rept'}=='1') { $mod_rept_CK  = 'checked';  }else{ $mod_rept_CK  = '';   }
+if($value->{'mod_stock'}=='1'){ $mod_stoc_CK  = 'checked';  }else{ $mod_stoc_CK  = '';   }
 
 }
+
+
+
+$res = $this->model->Query('SELECT * FROM SAX_USER  where SAX_USER.onoff="1" and SAX_USER.id="'.$id.'";');
+ 
+foreach ($res as $value) {
+
+  $value = json_decode($value);
+
+  $id = $value->{'id'};
+  $name = $value->{'name'};
+  $lastname = $value->{'lastname'};
+  $email = $value->{'email'};
+  $pass = $value->{'pass'};
+  $role= $value->{'role'};
+  $INF_OC= $value->{'notif_oc'};
+  $INF_FC= $value->{'notif_fc'};
+  $INF_PRICE= $value->{'mod_price'};
+  $INF_INV= $value->{'inv_view'};
+  $INF_STO= $value->{'stoc_view'};
+  $INF_REP= $value->{'rep_view'};
+
+  if($INF_OC==1){//notificaciones requisiciones
+
+  $notif_oc = 'checked';
+
+  }else{
+
+  $notif_oc = ''; 
+  }
+
+  if($INF_FC==1){//notificaciones acturas
+
+  $notif_fc = 'checked';
+
+  }else{
+
+  $notif_fc = ''; 
+  }
+
+   if($INF_PRICE==1){//modificar precio
+
+  $price_mod = 'checked';
+
+  }else{
+
+  $price_mod = '';  
+  }
+
+  if($INF_INV==1){//ver inventario
+
+  $INV_CK = 'checked';
+
+  }else{
+
+  $INV_CK = ''; 
+  }
+
+  if($INF_STO==1){//ver inventario
+
+  $STO_CK = 'checked';
+
+  }else{
+
+  $STO_CK = ''; 
+  }
+
+  if($INF_REP==1){//ver inventario
+
+  $REP_CK = 'checked';
+
+  }else{
+
+  $REP_CK = ''; 
+  }
+
+
+
+}
+
+
+
 ?>
 <div  class='menu_header col-xs-12'>
 
@@ -64,7 +146,7 @@ if($value->{'mod_stock'}=='1'){ $mod_stoc_CK = 'checked'; }else{ $mod_stoc_CK = 
 <?php } ?>
 
 
-<?php   if($mod_fact_CK == 'checked'){?>
+<?php   if($mod_fact_CK == 'checked'){ ?>
 <li class="dropdown">
         <a tabindex="0"  data-toggle="dropdown" data-submenu="" aria-expanded="false">
           <img class='icon' src="img/invoice.png" />Compras<span class="caret"></span>
@@ -79,7 +161,7 @@ if($value->{'mod_stock'}=='1'){ $mod_stoc_CK = 'checked'; }else{ $mod_stoc_CK = 
 <?php } ?>
 
 
-<?php   if($mod_invt_CK == 'checked'){?>
+<?php   if($mod_invt_CK == 'checked' and $INF_INV==1 ){?>
 <li class="dropdown">
         <a tabindex="0"  data-toggle="dropdown" data-submenu="" aria-expanded="false">
           <img class='icon' src="img/Products.png" />Inventario<span class="caret"></span>
@@ -95,7 +177,7 @@ if($value->{'mod_stock'}=='1'){ $mod_stoc_CK = 'checked'; }else{ $mod_stoc_CK = 
 <?php } ?>
 
 
-<?php   if($mod_stoc_CK  == 'checked'){?>
+<?php   if($mod_stoc_CK  == 'checked' and $INF_STO==1){?>
 <li class="dropdown">
         <a tabindex="0"  data-toggle="dropdown" data-submenu="" aria-expanded="false">
           <img class='icon' src="img/Stock.png" />Almacen<span class="caret"></span>
@@ -110,7 +192,7 @@ if($value->{'mod_stock'}=='1'){ $mod_stoc_CK = 'checked'; }else{ $mod_stoc_CK = 
 <?php } ?>
 
 
-<?php   if($mod_rept_CK  == 'checked'){?>
+<?php   if($mod_rept_CK  == 'checked' and $INF_REP==1){?>
 <li class="dropdown">
         <a tabindex="0" data-toggle="dropdown" data-submenu="">
          <img class='icon' src="img/Chart Pie.png" />Reportes<span class="caret"></span>
