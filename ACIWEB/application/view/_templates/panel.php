@@ -5,7 +5,7 @@ $('[data-submenu]').submenupicker();
 </script> 
 
 <?php
-//RECUPERO INFO DE DETALLES DE FACTURACION
+//RECUPERO INFO DE DETALLES DE MODULOS ACTIVOS
 $SQL = 'SELECT * FROM MOD_MENU_CONF';
 
 $MOD_MENU = $this->model->Query($SQL);
