@@ -16,9 +16,6 @@
     #print_button {  display: none; }
     #page {  display: none; }
     .print_button {  display: none;   }
-
-
-
 }
 
 
@@ -31,7 +28,6 @@ background-color:#D8D8D8;
 
 
 h3, h2{
-
 
 color:#FFBF00;
 
@@ -48,8 +44,8 @@ label, input{
 
 font-size: 10px;
 
-
 }
+
 
 textarea{
 
@@ -60,16 +56,12 @@ border-radius: 6px;
 select, input{
 
    border-radius: 6px;
-  
-
 }
 
 
 table {
  
     border: 1px solid #ddd !important;
- 
-
 }
 
 
@@ -185,7 +177,6 @@ visibility: hidden;
 table , th{
 
 font-size: 10px;
-
 text-align: center;
 
 }
@@ -363,8 +354,6 @@ overflow-x: scroll;
 overflow-x: hidden;
 
 }
-
-
 
 
 .Dashboard{
@@ -659,7 +648,6 @@ div .menu_header{
          }        
 
 /*GRAFICAS DEL DASHBOARD */
-<style type="text/css">
 
 #graph , #graph2 , #graph3{
  
