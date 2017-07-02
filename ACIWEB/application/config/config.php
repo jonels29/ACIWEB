@@ -57,15 +57,3 @@ ini_set('max_execution_time', 28800);
 */
 
 include '../public/db_val/db_variables.php'; 
-
-
-
-/*
-define('DB_TYPE', 'mysql');
-define('DB_HOST', 'localhost');
-define('DB_NAME', 'daoutqw3_ges_almacen');
-define('DB_USER', 'daoutqw3_root');
-define('DB_PASS', 'daoutel2015');
-define('DB_CHARSET', 'utf8');
-
-*/

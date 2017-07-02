@@ -699,149 +699,131 @@ function set_price_fields(){
 
     <legend><h4>Informacion General</h4></legend>
 
-        <div class="col-lg-12"> 
+    <div class="col-lg-12"> 
+      
+      <div class="col-lg-6">
+        <fieldset>
+          <p><strong>Cliente</strong></p>
+             <select  id="customer" name="customer" class="select col-lg-8" onchange="sendval(this.value);" required>
 
-           <div class="col-lg-6">
+              <option selected disabled></option>
 
-           <fieldset>
+              <?php  
+              $CUST = $this->model-> get_ClientList(); 
 
-           <p><strong>Cliente</strong></p>
+              foreach ($CUST as $datos) {
+                                        
+              $CUST_INF = json_decode($datos);
+              echo '<option value="'.$CUST_INF->{'ID'}.'" >('.$CUST_INF->{'CustomerID'}.' ) - '.$CUST_INF->{'Customer_Bill_Name'}."</option>";
 
-            <select  id="customer" name="customer" class="select col-lg-8" onchange="set_listprice(this.value);" required>
+              }
+              ?>
+                          
+            </select> 
+       </fieldset>
+      </div>
+       
+      <div class="col-lg-6">
+        <fieldset>
+        <p><strong>Representante de ventas</strong></p>          
+          <select  id="salesrep" name="salesrep" class="select col-lg-8"  required>
 
             <option selected disabled></option>
 
             <?php  
+            $srep = $this->model-> get_SalesRepre(); 
 
-            $CUST = $this->model-> get_ClientList(); 
+            foreach ($srep as $datos) {
+                                      
+            $srep_INF = json_decode($datos);
 
-            foreach ($CUST as $datos) {
 
-            $CUST_INF = json_decode($datos);
-
-            echo '<option value="'.$CUST_INF->{'ID'}.'" >'.$CUST_INF->{'CustomerID'}.' - '.$CUST_INF->{'Customer_Bill_Name'}."</option>";
+            echo '<option value="'.$srep_INF->{'SalesRepID'}.'" >'.$srep_INF->{'SalesRep_Name'}."</option>";
 
             }
-
             ?>
+                        
+          </select> 
+        </fieldset>
+      </div>
 
-         </select>  
+      <div class="separador col-lg-12"></div>
 
-         </fieldset>
-
-         </div>
-
-         <div class="col-lg-2" >
-
+         <div class="col-lg-3" >
          <fieldset>
-
            <p><strong>Entrega a:</strong></p>
-
             <input class="col-lg-12" id="entrega" name="entrega" />  
 
          </fieldset>
-
          </div>
-
-        <div class="col-lg-2">
-
+         <div class="col-lg-3" >
          <fieldset>
-
-          <p><strong>No. PO: </strong><p>
-
-            <input  class="col-lg-12" id="nopo" name="nopo"/>
-
-         </fieldset>
-
-        </div> 
-
-         <div class="col-lg-2" >
-
-         <fieldset>
-
              <p><strong>Tipo de Licitacion</strong></p>
-
                 <input class="col-lg-12" id="tipo_licitacion" name="tipo_licitacion"/> 
-
          </fieldset>
-
          </div>
 
-         <div class="separador col-lg-12"></div>
+       
+         <div class="col-lg-3" >
+         <fieldset>
+             <p><strong>Terminos de pago</strong></p>
+               <input  class="col-lg-12" id="termino_pago" name="termino_pago" />
+         </fieldset>
+         </div>
+
+         <div class="col-lg-3" >
+           <fieldset>
+               <p><strong>Tax ID</strong></p>
+                 <select  id="taxid" name="taxid" class="select col-lg-12" onchange="set_taxid(this.value);" required>
+                   <?php  
+                    $tax = $this->model->Get_sales_conf_Info(); 
+
+                    foreach ($tax  as $datos) {
+                      $tax  = json_decode($datos);
+
+                      if($tax->{'taxid'}=='EXENTO'){
+
+                        $selected = 'selected';
+
+                      }else{   
+
+                         $selected = '';
+
+                      }
+                                      
+                    echo '<option value="'.$tax ->{'rate'}.'" '.$selected.'>'.$tax->{'taxid'}.'</option>';
+
+                    }?>
+              </select>
+          </fieldset>
+        </div>
+
 
          <div class="col-lg-6" >
-
            <fieldset>
-
              <p><strong>Observaciones</strong></p>
-
                <textarea class="col-lg-12"  rows="2" id="observaciones" name="observaciones"></textarea> 
-
          </fieldset> 
-
          </div>
 
-         <div class="col-lg-3" >
-
+        <div class="col-lg-3">
          <fieldset>
-
-             <p><strong>Terminos de pago</strong></p>
-
-               <input  class="col-lg-12" id="termino_pago" name="termino_pago" />
-
+            <div class="col-lg-12">
+                <strong>No. PO: </strong><input type="text"
+                 id="nopo" name="nopo"/><br>
+           </div>
          </fieldset>
-
-         </div>
-
-         <div class="col-lg-3" >
-
-         <fieldset>
-
-             <p><strong>Tax ID</strong></p>
-
-               <select  id="taxid" name="taxid" class="select col-lg-12" onchange="set_taxid(this.value,2);" required>
-
-            <?php  
-
-            $tax = $this->model->Get_sales_conf_Info(); 
-
-            foreach ($tax  as $datos) {
-
-              $tax  = json_decode($datos);
-
-              if($tax->{'taxid'}=='ITBMS'){
-
-                $selected = 'selected';
-
-              }else{   
-
-                 $selected = '';
-
-              }
-
-            echo '<option value="'.$tax ->{'rate'}.'" '.$selected.'>'.$tax->{'taxid'}.'</option>';
-
-            }
-
-            ?>
-
-           </select>
-
-         </fieldset>
-
-       </div>
-
-  </div>
-
- <div class="separador col-lg-12"> </div>
-
- <div class="col-lg-10"> </div>
+        </div> 
+<div class="col-lg-10"> </div>
 
   <div  class="col-lg-2">
 
        <input type="submit" onclick="send_order_2();" class="btn btn-primary  btn-sm btn-icon icon-right" value="Procesar" />
 
   </div>
+
+</div>
+
 
 </fieldset>
 
@@ -881,13 +863,6 @@ if($pice_mod_ck!=1){ ?>
 
       <th width="10%" >Item ID
 
-<!--       <select id="check_val" onchange="init(this.value);">
-
-      <option value="1" >Renglon</option>
-
-      <option value="2" >Codigo</option> 
-
-      </select> -->
 
       </th>
 
@@ -1019,6 +994,7 @@ var arrLen = '';
 
 validacion();
 
+
 if(CHK_VALIDATION == true){ CHK_VALIDATION = false;  return;  }
 
 /////////////////////////////
@@ -1079,7 +1055,7 @@ var r = confirm('Desea procesar la orden?');
 
     //METODO EN BRIDGE_QUERY
 
-    var datos= "url=bridge_query/set_sales_order_header//"+CustomerID+
+    var datos= "url=bridge_query/set_sales_order_header/"+CustomerID+
 
                 '/'+Subtotal+
 
@@ -1097,7 +1073,9 @@ var r = confirm('Desea procesar la orden?');
 
                 '/'+entrega+
 
-                '/'+Ordertax;
+                '/'+Ordertax+
+
+                '/'; //AQUI DEBE IR SALESREPID
 
       return  $.ajax({
 
