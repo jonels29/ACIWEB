@@ -678,7 +678,7 @@ CREATE TABLE IF NOT EXISTS `SalesOrder_Header_Exp` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 DROP TRIGGER IF EXISTS `Closed_SalesOrder`;
 DELIMITER $$
-CREATE TRIGGER `Closed_SalesOrder` AFTER UPDATE ON `salesorder_header_exp`
+CREATE TRIGGER `Closed_SalesOrder` AFTER UPDATE ON `SalesOrder_Header_Exp`
  FOR EACH ROW BEGIN
 
 DECLARE  SO_ID varchar(50);
@@ -931,7 +931,7 @@ INSERT INTO `sax_company_sage` (`ID`, `id_compania`, `reference`, `onoff`) VALUE
 
 DROP TABLE IF EXISTS `SAX_USER`;
 CREATE TABLE IF NOT EXISTS `SAX_USER` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `name` varchar(255) COLLATE utf8_spanish_ci NOT NULL,
   `lastname` varchar(255) COLLATE utf8_spanish_ci NOT NULL,
   `email` varchar(255) COLLATE utf8_spanish_ci NOT NULL,
@@ -1149,9 +1149,6 @@ ALTER TABLE `sale_tax`
 ALTER TABLE `sax_company_sage`
   ADD PRIMARY KEY (`ID`);
 
-ALTER TABLE `SAX_USER`
-  ADD PRIMARY KEY (`id`);
-
 ALTER TABLE `status_location`
   ADD PRIMARY KEY (`id`);
 
@@ -1225,8 +1222,7 @@ ALTER TABLE `sale_tax`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 ALTER TABLE `sax_company_sage`
   MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
-ALTER TABLE `SAX_USER`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
 ALTER TABLE `status_location`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
 ALTER TABLE `ubicaciones`
@@ -1236,6 +1232,3 @@ ALTER TABLE `UNIT_MES_CONVRT`
 
 ALTER TABLE  `Sales_Representative_Exp` 
    ADD PRIMARY KEY (  `SalesRepID` ,  `ID_compania` ) ;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
