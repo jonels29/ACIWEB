@@ -181,7 +181,7 @@ CREATE TABLE IF NOT EXISTS `InventoryAdjust_Imp` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 DROP TRIGGER IF EXISTS `Inventory_On_Error`;
 DELIMITER $$
-CREATE TRIGGER `Inventory_On_Error` AFTER UPDATE ON `inventoryadjust_imp`
+CREATE TRIGGER `Inventory_On_Error` AFTER UPDATE ON `InventoryAdjust_Imp`
  FOR EACH ROW BEGIN
 DECLARE  ORDER_Error varchar(150);
 DECLARE  ORDER_Number varchar(150);
@@ -334,9 +334,8 @@ CREATE TABLE IF NOT EXISTS `Products_Exp` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 DROP TRIGGER IF EXISTS `Products_Exp_after_update`;
 DELIMITER $$
-CREATE TRIGGER `Products_Exp_after_update` AFTER UPDATE ON `products_exp`
+CREATE TRIGGER `Products_Exp_after_update` AFTER UPDATE ON `Products_Exp`
  FOR EACH ROW BEGIN
-
 
 /*ubico el id del item que esta siendo actualizado*/
 SET  @ITEMID = (SELECT ProductID
@@ -377,9 +376,9 @@ END IF;
 END
 $$
 DELIMITER ;
-DROP TRIGGER IF EXISTS `products_exp_AFTER_INSERT`;
+DROP TRIGGER IF EXISTS `Products_Exp_AFTER_INSERT`;
 DELIMITER $$
-CREATE TRIGGER `products_exp_AFTER_INSERT` AFTER INSERT ON `products_exp`
+CREATE TRIGGER `products_exp_AFTER_INSERT` AFTER INSERT ON `Products_Exp`
  FOR EACH ROW BEGIN
 
 DECLARE  ITEMID varchar(50);
@@ -742,7 +741,7 @@ CREATE TABLE IF NOT EXISTS `SalesOrder_Header_Imp` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 DROP TRIGGER IF EXISTS `SalesOrder_OnError`;
 DELIMITER $$
-CREATE TRIGGER `SalesOrder_OnError` AFTER UPDATE ON `salesorder_header_imp`
+CREATE TRIGGER `SalesOrder_OnError` AFTER UPDATE ON `SalesOrder_Header_Imp`
  FOR EACH ROW BEGIN
 DECLARE  ORDER_Error varchar(150);
 DECLARE  ORDER_Number varchar(150);
@@ -830,7 +829,7 @@ CREATE TABLE IF NOT EXISTS `Sales_Header_Imp` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 DROP TRIGGER IF EXISTS `Sales_OnError`;
 DELIMITER $$
-CREATE TRIGGER `Sales_OnError` AFTER UPDATE ON `sales_header_imp`
+CREATE TRIGGER `Sales_OnError` AFTER UPDATE ON `Sales_Header_Imp`
  FOR EACH ROW begin
 DECLARE  ORDER_Error varchar(150);
 DECLARE  ORDER_Number varchar(150);
