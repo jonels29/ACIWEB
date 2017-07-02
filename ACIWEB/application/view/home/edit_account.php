@@ -4,55 +4,17 @@ error_reporting(0);
 //GET ACCOUNT INFO
 if($id){
 
-$sql = 'SELECT * FROM SAX_USER  where SAX_USER.onoff="1" and SAX_USER.id="'.$id.'";';
- 
-$res = $this->model->Query($sql);
- 
-foreach ($res as $value) {
 
-	$value = json_decode($value);
+if($this->model->active_user_role!='admin'){ 
 
-	$id = $value->{'id'};
-	$name = $value->{'name'};
-	$lastname = $value->{'lastname'};
-	$email = $value->{'email'};
-	$pass = $value->{'pass'};
-	$role= $value->{'role'};
-	$INF_OC= $value->{'notif_oc'};
-	$INF_FC= $value->{'notif_fc'};
-	$INF_PRICE= $value->{'mod_price'};
+	$notif_oc  .= ' disabled'; 
+	$notif_fc  .= ' disabled'; 
+	$price_mod .= ' disabled'; 
+	$REP_CK .= ' disabled';
+	$STO_CK .= ' disabled';
+	$INV_CK .= ' disabled';
 
-	if($INF_OC==1){//notificaciones
-
-	$notif_oc = 'checked';
-
-	}else{
-
-	$notif_oc = '';	
-	}
-
-	if($INF_FC==1){//notificaciones
-
-	$notif_fc = 'checked';
-
-	}else{
-
-	$notif_fc = '';	
-	}
-
-if($INF_PRICE==1){//notificaciones
-
-	$price_mod = 'checked';
-
-	}else{
-
-	$price_mod = '';	
-	}
-
-
-}
-
-if($this->model->active_user_role!='admin'){ $notif_oc .= ' disabled'; $notif_fc .= ' disabled'; $price_mod .= ' disabled'; }
+}  
 
 //UPDATE INFORMATION
 if($_POST['flag2']=='1'){
@@ -83,6 +45,33 @@ if($_POST['flag2']=='1'){
 
 		$mod_price_value = '0';	
 		}
+
+		if($_POST['inv_chk']==true){
+
+		$set_inv_chk= '1';
+
+		}else{
+
+		$set_inv_chk= '0';	
+		}
+
+		if($_POST['sto_chk']==true){
+
+		$set_sto_chk = '1';
+
+		}else{
+
+		$set_sto_chk = '0';	
+		}
+
+		if($_POST['rep_chk']==true){
+
+		$set_rep_chk = '1';
+
+		}else{
+
+		$set_rep_chk = '0';	
+		}
 		
 
 $pass_ck = $this->model->Query_value('SAX_USER','pass','where SAX_USER.onoff="1" and SAX_USER.id="'.$id.'"');
@@ -98,18 +87,20 @@ $pass_ck = $this->model->Query_value('SAX_USER','pass','where SAX_USER.onoff="1"
 		
 	}
 
-$columns  = array( 'name' => $_POST['name2'],
-	               'lastname' => $_POST['lastname2'],
-	               'pass' => $pass,
-	               'role'=> $_POST['priv'],
-	               'notif_oc' => $not_oc_value,
-	               'notif_fc' => $not_fc_value, 
-	               'mod_price' => $mod_price_value);
+$columns  = array( 'name'      => $_POST['name2'],
+	               'lastname'  => $_POST['lastname2'],
+	               'pass'      => $pass,
+	               'role'      => $_POST['priv'],
+	               'notif_oc'  => $not_oc_value,
+	               'notif_fc'  => $not_fc_value, 
+	               'mod_price' => $mod_price_value,
+	               'inv_view'  => $set_inv_chk,
+	               'rep_view'  => $set_rep_chk,
+	               'stoc_view' => $set_sto_chk );
 
 $clause = 'id="'.$_POST['user_2'].'"';
 
 $this->model->update('SAX_USER',$columns,$clause);
-
 
 
 echo '<script>alert("Se ha actualizado los datos con exito");
@@ -211,14 +202,17 @@ self.location="'.URL.'index.php?url=home/edit_account/'.$id.'";
 <div class="col-lg-6">
 <fieldset>
 <legend><h4>Notificaciones</h4></legend>
-<input type="CHECKBOX" name="oc_chk" <?php echo $notif_oc; ?> />&nbsp<label>Requisiciones</label><br>
-<input type="CHECKBOX" name="fc_chk" <?php echo $notif_fc; ?> />&nbsp<label>Facturas de Compra</label>
+<?PHP if ($mod_fact_CK == 'checked') { ?><input type="CHECKBOX" name="oc_chk" <?php echo $notif_oc; ?> />&nbsp<label>Requisiciones</label><br>
+<input type="CHECKBOX" name="fc_chk" <?php echo $notif_fc; ?> />&nbsp<label>Facturas de Compra</label><?php } ?>
 </fieldset>
 </div>
 <div class="col-lg-6">
 <fieldset>
-<legend><h4>Opciones</h4></legend>
-<input type="CHECKBOX" name="pri_chk" <?php echo $price_mod; ?> />&nbsp<label>Modificacion de Precios</label>
+<legend><h4>Autorizaciones</h4></legend>
+<?PHP if ($mod_sales_CK == 'checked') { ?><input type="CHECKBOX" name="pri_chk" <?php echo $price_mod;  ?> />&nbsp<label>Modificar de Precios</label><br> <?php } ?>
+<?PHP if ($mod_invt_CK  == 'checked') { ?><input type="CHECKBOX" name="inv_chk" <?php echo $INV_CK;  ?> />&nbsp<label>Gestionar Inventario</label><br><?php } ?>
+<?PHP if ($mod_stoc_CK  == 'checked') { ?><input type="CHECKBOX" name="sto_chk" <?php echo $STO_CK;  ?> />&nbsp<label>Gestionar Ubicaciones</label><br><?php } ?>
+<?PHP if ($mod_rept_CK  == 'checked') { ?><input type="CHECKBOX" name="rep_chk" <?php echo $REP_CK;  ?> />&nbsp<label>Gestionar Reportes</label><br><?php } ?>
 </fieldset>
 </div>
 

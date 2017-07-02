@@ -6,7 +6,9 @@ $(window).load(function(){
 var TaxID=$("#taxid option:selected").html();
 var Taxval=$("#taxid option:selected").val();
 
- set_taxid(Taxval);
+$('#ERROR').hide();
+
+set_taxid(Taxval);
 });
 
 
@@ -32,6 +34,12 @@ echo '<input type="hidden" id="FAC_DET_CONF" value="" />';
 <div class="page col-lg-12">
 
 <div  class="col-lg-12">
+
+<!--INI DIV ERRO-->
+<div id="ERROR" class="alert alert-danger"></div>
+<!--INI DIV ERROR-->
+
+
 <!-- contenido -->
 <h2>Orden de Venta</h2>
 <div class="title col-lg-12"></div>
@@ -44,33 +52,59 @@ echo '<input type="hidden" id="FAC_DET_CONF" value="" />';
 <div class="col-lg-12">
 
 
-
     <fieldset>
     <legend><h4>Informacion General</h4></legend>
         
-        <div class="col-lg-12"> 
-         <div class="col-lg-6">
-         <fieldset>
-      <p><strong>Cliente</strong></p>
-        
-      <select  id="customer" name="customer" class="select col-lg-8" onchange="sendval(this.value);" required>
+    <div class="col-lg-12"> 
+      
+      <div class="col-lg-6">
+        <fieldset>
+          <p><strong>Cliente</strong></p>
+             <select  id="customer" name="customer" class="select col-lg-8" onchange="sendval(this.value);" required>
 
-        <option selected disabled></option>
+              <option selected disabled></option>
 
-        <?php  
-        $CUST = $this->model-> get_ClientList(); 
+              <?php  
+              $CUST = $this->model-> get_ClientList(); 
 
-        foreach ($CUST as $datos) {
-                                  
-        $CUST_INF = json_decode($datos);
-        echo '<option value="'.$CUST_INF->{'ID'}.'" >('.$CUST_INF->{'CustomerID'}.' ) - '.$CUST_INF->{'Customer_Bill_Name'}."</option>";
+              foreach ($CUST as $datos) {
+                                        
+              $CUST_INF = json_decode($datos);
+              echo '<option value="'.$CUST_INF->{'ID'}.'" >('.$CUST_INF->{'CustomerID'}.' ) - '.$CUST_INF->{'Customer_Bill_Name'}."</option>";
 
-        }
-        ?>
-                    
-      </select> 
-     </fieldset>
-         </div>
+              }
+              ?>
+                          
+            </select> 
+       </fieldset>
+      </div>
+       
+      <div class="col-lg-6">
+        <fieldset>
+        <p><strong>Representante de ventas</strong></p>          
+          <select  id="salesrep" name="salesrep" class="select col-lg-8"  required>
+
+            <option selected disabled></option>
+
+            <?php  
+            $srep = $this->model-> get_SalesRepre(); 
+
+            foreach ($srep as $datos) {
+                                      
+            $srep_INF = json_decode($datos);
+
+
+            echo '<option value="'.$srep_INF->{'SalesRepID'}.'" >'.$srep_INF->{'SalesRep_Name'}."</option>";
+
+            }
+            ?>
+                        
+          </select> 
+        </fieldset>
+      </div>
+
+      <div class="separador col-lg-12"></div>
+
          <div class="col-lg-3" >
          <fieldset>
            <p><strong>Entrega a:</strong></p>
@@ -85,15 +119,7 @@ echo '<input type="hidden" id="FAC_DET_CONF" value="" />';
          </fieldset>
          </div>
 
-       <div class="separador col-lg-12"></div>
-
-         <div class="col-lg-6" >
-           <fieldset>
-             <p><strong>Observaciones</strong></p>
-               <textarea class="col-lg-12"  rows="2" id="observaciones" name="observaciones"></textarea> 
-         </fieldset> 
-         </div>
-
+       
          <div class="col-lg-3" >
          <fieldset>
              <p><strong>Terminos de pago</strong></p>
@@ -102,39 +128,48 @@ echo '<input type="hidden" id="FAC_DET_CONF" value="" />';
          </div>
 
          <div class="col-lg-3" >
-         <fieldset>
-             <p><strong>Tax ID</strong></p>
-               <select  id="taxid" name="taxid" class="select col-lg-12" onchange="set_taxid(this.value);" required>
+           <fieldset>
+               <p><strong>Tax ID</strong></p>
+                 <select  id="taxid" name="taxid" class="select col-lg-12" onchange="set_taxid(this.value);" required>
+                   <?php  
+                    $tax = $this->model->Get_sales_conf_Info(); 
 
-    
-        <?php  
-        $tax = $this->model->Get_sales_conf_Info(); 
+                    foreach ($tax  as $datos) {
+                      $tax  = json_decode($datos);
 
-        foreach ($tax  as $datos) {
-          $tax  = json_decode($datos);
+                      if($tax->{'taxid'}=='EXENTO'){
 
-          if($tax->{'taxid'}=='EXENTO'){
+                        $selected = 'selected';
 
-            $selected = 'selected';
+                      }else{   
+
+                         $selected = '';
+
+                      }
+                                      
+                    echo '<option value="'.$tax ->{'rate'}.'" '.$selected.'>'.$tax->{'taxid'}.'</option>';
+
+                    }?>
+              </select>
+          </fieldset>
+        </div>
 
 
-          }else{   
-
-
-             $selected = '';
-
-          }
-                          
-        
-        echo '<option value="'.$tax ->{'rate'}.'" '.$selected.'>'.$tax->{'taxid'}.'</option>';
-
-        }
-        ?>
-                    
-      </select>
-         </fieldset>
+         <div class="col-lg-6" >
+           <fieldset>
+             <p><strong>Observaciones</strong></p>
+               <textarea class="col-lg-12"  rows="2" id="observaciones" name="observaciones"></textarea> 
+         </fieldset> 
          </div>
 
+        <div class="col-lg-3">
+         <fieldset>
+            <div class="col-lg-12">
+                <strong>No. PO: </strong><input type="text"
+                 id="nopo" name="nopo"/><br>
+           </div>
+         </fieldset>
+        </div> 
 
 <script type="text/javascript">
 
@@ -145,8 +180,6 @@ echo '<input type="hidden" id="FAC_DET_CONF" value="" />';
 
     document.getElementById('saletaxid').value =  rate;
     
-    
-
   }
 
 </script>
@@ -164,14 +197,15 @@ echo '<input type="hidden" id="FAC_DET_CONF" value="" />';
 
 <div class="col-lg-12">
 <!-- select products -->
-<div class="col-lg-6">
+<div class="col-lg-12">
 <fieldset>
-<legend><h4>Productos</h4></legend>
+<legend><h4>Seleccionar productos</h4></legend>
 
 
-<div id="product_list"></div>
+<div id="product_list"><P CLASS="help-block">SELECCIONAR CLIENTE PARA DESPLEGAR LA LISTA DE PRODUCTOS</P></div>
         
 <script type="text/javascript">
+CHK_VALIDATION = false;
 
 function set_product_table(ID_cust){
 
@@ -235,55 +269,16 @@ var link= URL+"index.php";
 
 
 <!-- oredn-->
-<div class="col-lg-6" style="float:right;">
+<div class="col-lg-12" style="float:right;">
   
 <fieldset>
-<legend>Orden de venta</legend>
+<legend>Detalle</legend>
 
 <input type="hidden" id='user' value="<?php echo $active_user_id; ?>" />
 
 <div class="col-lg-12">
- <div   class="col-lg-6"> 
-                 
-    <label style="display:inline"> Orden No. </label><INPUT class="input-control" type="text" name="no_order" id="no_order" readonly value="
-     <?php echo  $this->model->Get_SO_No(); ?>" />
-</div>
 
-<div  class="col-lg-2"></div>
-  <div   class="col-lg-4">
-  <label> Fecha : </label><input style="float:right; text-align: center;" class="input-control" name="date" id="date" value="<?php echo date("Y-m-d"); ?>" /></label>
-  </div>
-
-</div>
-    <div class="title col-lg-12"></div>
-  <!-- Client and Payment Details -->
-  
-         <div class="col-lg-8">
-         <fieldset>
-          <legend><h5>Entrega para:</h5></legend>
-          <div class="col-lg-12">
-            <label id="cust_name" name="cust_name"></label><br>
-            <label id="cust_addr" name="cust_addr"></label><br>
-            <label id="cust_mail" name="cust_mail"></label>&nbsp/
-            <label id="cust_phone" name="cust_phone"></label>
-          </div>
-         </fieldset>
-    </div> 
-
-    <div class="col-lg-4">
-         <fieldset>
-          
-          <div class="col-lg-12">
-            <strong>No. PO: </strong><input type="text"
-             id="nopo" name="nopo"/><br>
-            
-          </div>
-         </fieldset>
-    </div> 
-
-
-
-              <!-- valores ocultos -->
+  <!-- valores ocultos -->
   <input type="text" id="cust_id" name="cust_id" hidden/>
   <input type="text" id="cust_comp" name="cust_comp" hidden/>
 
@@ -308,49 +303,30 @@ var link= URL+"index.php";
   </tbody>
   </table>
 <script>
+
 function sumar_total(id,item,price,qty,taxable){
 
-
-
 price = parseFloat(price)*qty
-
-
 
 if(taxable=='1'){
 
 var saletax = document.getElementById('saletaxid').value;
 
-
 }else{
   
-
 var saletax = 0;
-
 
 }
 
-
-
-    subtotal =  document.getElementById('subtotal');
-    tax =     document.getElementById('tax');
-    total = document.getElementById('total');
-
-
+  subtotal =  document.getElementById('subtotal');
+  tax =     document.getElementById('tax');
+  total = document.getElementById('total');
   suma_subtotal = parseFloat(subtotal.value)+price;
-
-    itbms = suma_subtotal * saletax;
-
+  itbms = suma_subtotal * saletax;
   TOTAL = itbms + suma_subtotal;
-
   subtotal.value = parseFloat(Math.round(suma_subtotal* 100) / 100).toFixed(2);
-
   tax.value =  parseFloat(Math.round(itbms * 100) / 100).toFixed(2);
-
   total.value =  parseFloat(Math.round(TOTAL * 100) / 100).toFixed(2);
-
-
-
-  
 
 }
 </script> 
@@ -460,13 +436,6 @@ function get_customer_info(){
 
         res = JSON.parse(res);
 
-    document.getElementById('cust_name').innerHTML= res.Customer_Bill_Name;
-    document.getElementById('cust_addr').innerHTML= res.AddressLine1+' '+res.AddressLine2;
-    document.getElementById('cust_mail').innerHTML= res.Email;
-    document.getElementById('cust_phone').innerHTML= res.Phone_Number;
-    document.getElementById('cust_id').value= res.ID;
-    document.getElementById('cust_comp').value= res.id_compania;
-
         }
    });
 
@@ -484,18 +453,14 @@ function get_customer_info(){
 
 }else{
 
-
   $('#product_list').html(''); //limpio la lista de productos
 
 }
-
-
-
                
 }
 
 
-//modificacion rey 23/11
+
 //FUNCION PARA GUARDAR ITEMS EN ARRAY 
 function set_items(){
 
@@ -517,13 +482,10 @@ for(var i=1; i<theTbl.rows.length ;i++) //BLUCLE PARA LEER LINEA POR LINEA LA TA
   var iditem ='';
   var descitem = '';
 
-
   taxfield = theTbl.rows[i].cells[2].innerHTML+theTbl.rows[i].cells[1].innerHTML+'taxable';
   qty = theTbl.rows[i].cells[2].innerHTML+theTbl.rows[i].cells[1].innerHTML+'qty';
   iditem = document.getElementById('item_id_modal').value;
   descitem = document.getElementById('desc_id_modal').value;
-
- // if(cell1==true){ //LEE SOLO LAS LINEAS CON CHECK. 
 
 
 
@@ -535,8 +497,6 @@ if(document.getElementById(qty).value > 0){
   
     for(var j=0;j<theTbl.rows[i].cells.length; j++) //BLUCLE PARA LEER CELDA POR CELDA DE CADA LINEA
         {       
-
-
 
                  switch (j){
 
@@ -561,7 +521,6 @@ if(document.getElementById(qty).value > 0){
 
                              break;
 
-                             
                        case 5:
                             var  venc=theTbl.rows[i].cells[j].innerHTML;
                               break;
@@ -570,24 +529,16 @@ if(document.getElementById(qty).value > 0){
                               break;
                  }
 
-
-                   
            }//FIN BLUCLE PARA LEER CELDA POR CELDA DE CADA LINEA
 
         }
 
-        
-      
         if (qty_val > 0  && l!=''){
 
-       
               agregar_pro_sale_sale(iditem,descitem,ruta,lote,max,qty_val,venc,taxable);
                
-             
             }
  
-        
-
 }//FIN BLUCLE PARA LEER LINEA POR LINEA DE LA TABLA 
 
   if(l!=''){
@@ -595,36 +546,7 @@ if(document.getElementById(qty).value > 0){
       $('#myModal').modal('hide');
   }
 
-
 }
-//modificacion rey 23/11
-
-/*function valida_qty(max,qty,id){  
-
-console.log('MAX:'+max+' Qty:'+qty);
-
-
-
-if(qty!=''){
-
-    var compare = (parseInt(max) >= parseInt(qty));
-
-    if(!compare){
-
-      alert('El valor de la cantidad no debe exceder la cantidad disponible en Stock');
-     
-       document.getElementById(id).value = '';
-
-      return '0';
-
-     }else{
-
-      return '1';
-     }
-
-}
-
-}*/
 
 
 
@@ -676,17 +598,11 @@ alert('Se debe indicar el TaxID');
 if (price >= 0){
 
   var idqty = id+lote+ruta+"qty";
-  
-  var element = id+lote+ruta; 
-              
+  var element = id+lote+ruta;           
   var qty =  parseFloat(qty).toFixed(5);
-
   var max =  parseInt( max );
-
   var total= parseFloat(price*qty).toFixed(4);
-
   var price= parseFloat(price).toFixed(4);
-
   var caduc = '';
 
   if(venc!=''){
@@ -700,12 +616,6 @@ if (price >= 0){
   }
 
 
-
-/*if(!document.getElementById(element)){
-
-
-Bucle para tratar cantidades mayor a 100,000 dependiendo de la configuracion.
-*/
 var line_counter = 0;
 var qty_new = 0;
 var limit = 99999.00000;
@@ -793,264 +703,196 @@ alert('El precio del producto no debe ser menor a 0');
 
 }
 
-            function del_tr(remtr){
+function del_tr(remtr){
                
-                  while((remtr.nodeName.toLowerCase())!='tr')
-                      remtr = remtr.parentNode;
+while((remtr.nodeName.toLowerCase())!='tr')
+remtr = remtr.parentNode;
+remtr.parentNode.removeChild(remtr);
 
-                  remtr.parentNode.removeChild(remtr);
-              }
+}
 
-            function del_id(id){   
-                      del_tr(document.getElementById(id));
-              }
+function del_id(id){   
+ del_tr(document.getElementById(id));
+}
 
+function erase_item(line){
 
-            function erase_item(line){
+    LineArray[line]='';
 
-            
-              LineArray[line]='';
+}
 
-              //alert(LineArray);
+function del_count(ITEM,LOTE){
 
-            }
-            function del_count(ITEM,LOTE){
+ COUNT_QTY_ARR[ITEM+''+LOTE]=0;
 
-                console.log(ITEM+''+LOTE);
+}
 
-                COUNT_QTY_ARR[ITEM+''+LOTE]=0;
+function rest_value(price,qty,taxable){
 
+ if(taxable=='1'){
 
-            }
+     var saletax = document.getElementById('saletaxid').value;
 
-            function rest_value(price,qty,taxable){
+  }else{
 
-              if(taxable=='1'){
+      var saletax = 0;
 
-              var saletax = document.getElementById('saletaxid').value;
+  }
 
-              }else{
+  price = parseFloat(price)*qty;
 
+  var subtotal =  document.getElementById('subtotal');
+  rest_subtotal = subtotal.value-price;
+  subtotal.value = rest_subtotal;
 
-              var saletax = 0;
+  var tax =document.getElementById('tax');
+  itbms = parseFloat(price).toFixed(2)*saletax;
+  tax.value = parseFloat(tax.value).toFixed(2)-parseFloat(itbms).toFixed(2);
 
-              }
+  subtotal_new =parseFloat(price)+itbms;
 
-              price = parseFloat(price)*qty;
+  var total = document.getElementById('total');
+  total_nuevo = total.value - subtotal_new;
+  total.value = total_nuevo;
+          
 
-            
-              var subtotal =  document.getElementById('subtotal');
-              rest_subtotal = subtotal.value-price;
-              subtotal.value = rest_subtotal;
-
-              
-              var tax =document.getElementById('tax');
-              itbms = parseFloat(price).toFixed(2)*saletax;
-              tax.value = parseFloat(tax.value).toFixed(2)-parseFloat(itbms).toFixed(2);
-
-
-              subtotal_new =parseFloat(price)+itbms;
-
-              var total = document.getElementById('total');
-
-              total_nuevo = total.value - subtotal_new;
-
-              total.value = total_nuevo;
+}
 
 
-              
+function validacion(){
+
+  CUSTOMER = $("#customer").val();
+
+  if (CUSTOMER == ''){
+
+   MSG_ERROR('Se debe seleccionar un cliente',0);
+
+   CHK_VALIDATION = true;
+
+  }
+}
 
 
-            }
+function send_sales_order(){
+
+MSG_ERROR_RELEASE();
+$('#ERROR').hide();
 
 
-      function send_sales_order(){
+validacion();
+
+if(CHK_VALIDATION == true){ CHK_VALIDATION = false;  return;  } 
 
 
-      if(LineArray!=''){
+  if(LineArray!=''){
 
-        var r = confirm("Desea enviar esta Orden ahora ?");
-                
-
-            if (r == true) {
-                    
-                
-
-             
-             ID_compania=$("#cust_comp").val();
-             var SalesOrderNumber=document.getElementById('no_order').value;
-             var CustomerID=$("#cust_id").val();
-
-
-             var termino_pago = document.getElementById('termino_pago').value;
-             var tipo_licitacion = document.getElementById('tipo_licitacion').value;
-             var observaciones = document.getElementById('observaciones').value;
-             var entrega = document.getElementById('entrega').value;
-
-             var user=document.getElementById('active_user_id').value;
-            
-             var nopo=document.getElementById('nopo').value;
-
-  
-             var Subtotal=$("#subtotal").val();
-             var total=$("#total").val();
-             var Ordertax =$("#tax").val();
-
-            var TaxID=$("#taxid option:selected").html();  //ultimo cambio
-
-
-            URL = document.getElementById('URL').value;
-
-  
-
-        if(SalesOrderNumber && CustomerID ){
-
-        //REGITRO DE CABECERA
-          function set_header(){
-
-              var datos= "url=bridge_query/set_sales_order_header/"+ID_compania+'/'+CustomerID+'/'+Subtotal+'/'+TaxID+'/'+total+'/'+user+'/'+nopo+'/'+termino_pago+'/'+tipo_licitacion+'/'+observaciones+'/'+entrega+'/'+Ordertax;
-
-              var link= URL+"index.php";
-
-               console.log(datos);
-
-              return  $.ajax({
-                    type: "GET",
-                    url: link,
-                    data: datos,
-                    success: function(res){
-
-                         OS_NO = res;
-
-                      }
-                 });
-
-           }
-
-   $.when(set_header()).done(function(OS_NO){ //ESPERA QUE TERMINE LA INSERCION DE CABECERA
-
-     console.log(OS_NO);
-
-      var link= URL+"index.php";
-
-      //REGISTROS DE ITEMS 
-        $.ajax({
-         type: "GET",
-         url:  link,
-         data:  {url: 'bridge_query/set_sales_order_detail/'+OS_NO , Data : JSON.stringify(LineArray)}, 
-         success: function(res){
-                             
-          console.log(res);
-
-          if(res==1){//TERMINA EL LLAMADO AL METODO set_req_items SI ESTE DEVUELV UN '1', indica que ya no hay items en el array que procesar.
+          var r = confirm("Desea enviar esta Orden ahora ?");
                   
-             msg(link,OS_NO);
-        
-          }
 
-           }
-        });  
-      //FIN REGISTROS DE ITEMS     
- 
-     }); 
-        
-/*        $.each(LineArray, function(index,value) {
+              if (r == true) {
 
 
-              setTimeout( function(){ 
+               var CustomerID= $("#customer").val();
+               var termino_pago = document.getElementById('termino_pago').value;
+               var tipo_licitacion = document.getElementById('tipo_licitacion').value;
+               var observaciones = document.getElementById('observaciones').value;
+               var entrega = document.getElementById('entrega').value;
+               var user=document.getElementById('active_user_id').value;
+               var nopo=document.getElementById('nopo').value;
+               var Subtotal=$("#subtotal").val();
+               var total=$("#total").val();
+               var Ordertax =$("#tax").val();
+               var TaxID=$("#taxid option:selected").html();  //ultimo cambio
+               var salesrepre = $("#salesrep").val(); 
 
-                    count++;
-                //      console.log(value);
-
-                    var datos= "url=bridge_query/set_sales_order_detail/"+OS_NO+'/'+index+'/'+ID_compania+'/'+value+'/'+LineArray.length+'/'+count;
-                    var link= URL+"index.php";
-
-
-                        $.ajax({
-                          type: "GET",
-                          url: link,
-                          data: datos,
-                          success: function(res){
-
-                          console.log(res);
-                          //  alert(res); 
-                          if(res==1){
-
-                                msg(URL+"index.php",SalesOrderNumber);
-
-                               }
-                                     
-                          }
-                        });
-
-               }, 500);
- 
-              });  */ 
-           
-       
-             }else{
+               URL = document.getElementById('URL').value;
 
 
-              alert('Debe seleccionar el cliente');
+
+          //REGITRO DE CABECERA
+            function set_header(){
+
+                var datos= "url=bridge_query/set_sales_order_header/"+CustomerID+'/'+Subtotal+'/'+TaxID+'/'+total+'/'+user+'/'+nopo+'/'+termino_pago+'/'+tipo_licitacion+'/'+observaciones+'/'+entrega+'/'+Ordertax+'/'+salesrepre;
+
+                var link= URL+"index.php";
+
+                 console.log(datos);
+
+                return  $.ajax({
+                      type: "GET",
+                      url: link,
+                      data: datos,
+                      success: function(res){
+
+                           OS_NO = res;
+
+                        }
+                   });
 
              }
 
-             
+             $.when(set_header()).done(function(OS_NO){ //ESPERA QUE TERMINE LA INSERCION DE CABECERA
 
-            
-            } 
-                
+               console.log(OS_NO);
+
+                var link= URL+"index.php";
+
+                //REGISTROS DE ITEMS 
+                  $.ajax({
+                   type: "GET",
+                   url:  link,
+                   data:  {url: 'bridge_query/set_sales_order_detail/'+OS_NO , Data : JSON.stringify(LineArray)}, 
+                   success: function(res){
+                                       
+                    console.log(res);
+
+                    if(res==1){//TERMINA EL LLAMADO AL METODO set_req_items SI ESTE DEVUELV UN '1', indica que ya no hay items en el array que procesar.
+                            
+                       msg(link,OS_NO);
+                  
+                    }
+
+                     }
+                  });  
+                //FIN REGISTROS DE ITEMS     
            
+               }); 
 
+   } 
 
+  }else{
 
-      }else{
+      alert('Debe incluir al menos un Item en la orden');
 
-        alert('Debe incluir al menos un Item en la orden');
-
-
-      }
-
+  }
             
-        }
+}
 
-        function msg(link,SalesOrderNumber){
+function msg(link,SalesOrderNumber){
 
+ alert("La orden se ha enviado con exito");
 
-          alert("La orden se ha enviado con exito");
+   var R = confirm('Desea imprimir la orden de venta?');
 
-          var R = confirm('Desea imprimir la orden de venta?');
+  if(R==true){
 
-          if(R==true){
+      window.open(link+'?url=ges_ventas/ges_print_salesorder/'+SalesOrderNumber,'_self');
+                   
+   }else{
 
+      location.reload();
 
-                 window.open(link+'?url=ges_ventas/ges_print_salesorder/'+SalesOrderNumber,'_self');
-                 
+  }
 
+}
 
-          }else{
-
-
-            location.reload();
-
-          }
-
-          
-
-        }
 
 function COUNT_QTY(ITEM,LOTE,QTY, MAX){
 
-
-
 var SUM = 0;
-//var CURR_QTY = 0;
-
 
 QTY = Number(QTY.replace(/[^0-9\.]+/g,""));
 MAX = Number(MAX.replace(/[^0-9\.]+/g,""));
-
-console.log(QTY+' '+MAX);
 
 CURR_QTY =  COUNT_QTY_ARR[ITEM+LOTE];
 
@@ -1064,11 +906,7 @@ CURR_QTY =  COUNT_QTY_ARR[ITEM+LOTE];
 
   }
 
-
-console.log(COUNT_QTY_ARR);
-
 compare = (MAX > SUM);
-
 
   if(MAX >= SUM){
 
