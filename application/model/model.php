@@ -64,19 +64,10 @@ class Model
 */ 
 public function ConexionSage(){
 
-        $connected= $this->Query_value('CompanySession','isConnected','order by LAST_CHANGE DESC limit 1');
+        $connected = $this->Query_value('CompanySession','isConnected','order by LAST_CHANGE DESC limit 1');
 
-        if ($connected==0) {
-
-            $status = 0;
-
-        }else{
-
-            $status = 1;
-
-        }
-     
-return $status;
+    
+return $connected;
 
 }
 
@@ -352,7 +343,7 @@ $url = str_replace('@',  '/', $temp_url);
 
         }else{
 
-         echo '<script>self.location="'.URL.'index.php?url=home/index";</script>';
+          echo '<script>self.location="'.URL.'index.php?url=home/index";</script>';
            
         }
 
