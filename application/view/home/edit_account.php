@@ -183,7 +183,7 @@ $pass_ck = $this->model->Query_value('SAX_USER','pass','where SAX_USER.onoff="1"
 
 
 //sube foto de perfil
-if($_FILES["image"]){
+if(basename($_FILES["image"]["name"])!=''){
 
 	$target_dir = "img/user_avatar/";
 	$target_file = $target_dir . basename($_FILES["image"]["name"]); 
