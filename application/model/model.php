@@ -16,6 +16,7 @@ class Model
      public  $active_user_role  = null;
      public  $active_user_almacen  = null;
      public  $id_compania = null;
+     public  $sage_connected = null;
 
 
 
@@ -31,7 +32,7 @@ class Model
             exit('No se pude realizar la conexion a la base de datos');
         }
 
-
+         $this->sage_connected =   $this->ConexionSage();
     }
 ////////////////////////////////////////////////////////////////////////////////////////
 /**
@@ -66,9 +67,7 @@ public function ConexionSage(){
 
         $connected = $this->Query_value('CompanySession','isConnected','order by LAST_CHANGE DESC limit 1');
 
-echo  $connected;   
 return $connected;
-
 }
 
 

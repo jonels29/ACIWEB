@@ -4,7 +4,7 @@
 <div    class="crop col-xs-6">
 <?php   
 
-$conn = $this->model->ConexionSage();
+$conn = $this->model->sage_connected;
 
 	if($conn==1){
 
