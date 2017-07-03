@@ -23,25 +23,30 @@ if($value->{'mod_stock'}=='1'){ $mod_stoc_CK  = 'checked';  }else{ $mod_stoc_CK 
 }
 
 
-
 $res = $this->model->Query('SELECT * FROM SAX_USER  where SAX_USER.onoff="1" and SAX_USER.id="'.$this->model->active_user_id.'";');
  
 foreach ($res as $value) {
 
   $value = json_decode($value);
 
-  $id = $value->{'id'};
-  $name = $value->{'name'};
-  $lastname = $value->{'lastname'};
-  $email = $value->{'email'};
-  $pass = $value->{'pass'};
-  $role= $value->{'role'};
   $INF_OC= $value->{'notif_oc'};
   $INF_FC= $value->{'notif_fc'};
   $INF_PRICE= $value->{'mod_price'};
   $INF_INV= $value->{'inv_view'};
   $INF_STO= $value->{'stoc_view'};
   $INF_REP= $value->{'rep_view'};
+  $PHOTO  = $value->{'photo'};
+
+  if($PHOTO == 'x'){
+
+   $user_avatar = URL.'img/user_avatar/'.$this->model->active_user_id.'.jpg';
+
+  }else{
+
+   $user_avatar = URL.'img/default-avatar.PNG';
+
+  }
+
 
   if($INF_OC==1){//notificaciones requisiciones
 
@@ -100,6 +105,7 @@ foreach ($res as $value) {
 
 
 }
+
 
 
 
@@ -213,27 +219,31 @@ foreach ($res as $value) {
 <?php } ?>
 
 </ul>
-<!--left side-->
-<ul class="nav navbar-nav navbar-right">
-   <li class="dropdown">
-        <a tabindex="0" data-toggle="dropdown" data-submenu="" aria-expanded="false">
-        <img class='icon' src="img/options.png" />Opciones<span class="caret"></span>
-        </a>
 
-<ul class="dropdown-menu">
-  
-<li><a tabindex="0" title="Ir al perfil de usuario"  href="<?PHP ECHO URL; ?>index.php?url=home/edit_account/<?php echo $this->model->active_user_id; ?>"><img class='icon' src="img/Contact.png" /><?php echo $this->model->active_user_name.' '.$this->model->active_user_lastname; ?>&nbsp;&nbsp;</a></li>
 
-<?php if($this->model->active_user_role=='admin'){?>
-<li><a tabindex="0" title="Administrar Usuarios" href="<?PHP ECHO URL; ?>index.php?url=home/accounts" ><img class='icon' src="img/Users.png" />Usuarios</a></li>
-<li><a tabindex="0" title="Configuracion"  href="<?PHP ECHO URL; ?>index.php?url=home/config_sys" ><img  class='icon' src="img/Cog.png" />Configuracion</a></li>
-<?php } ?>
-         
-<li class="divider"></li>
 
-<li><a  title="Salir del sistema" href="<?PHP ECHO URL; ?>index.php?url=login/login_out/" ><img  class='icon' src="img/Shut.png" />Salir</a></li>
 
-</ul>
+     <!--left side-->
+        <ul class="nav navbar-nav navbar-right">
+           <li class="dropdown">
+                <a tabindex="0" data-toggle="dropdown" data-submenu="" aria-expanded="false">
+                <img class='icon profile'  src="<?php echo  $user_avatar; ?>" /> <?php echo $this->model->active_user_name.' '.$this->model->active_user_lastname; ?><span class="caret"></span>
+                </a>
+
+        <ul class="dropdown-menu">
+          
+        <li><a tabindex="0" title="Ir al perfil de usuario"  href="<?PHP ECHO URL; ?>index.php?url=home/edit_account/<?php echo $this->model->active_user_id; ?>"><img class='icon' src="img/Contact.png" />Perfil&nbsp;&nbsp;</a></li>
+
+        <?php if($this->model->active_user_role=='admin'){?>
+        <li><a tabindex="0" title="Administrar Usuarios" href="<?PHP ECHO URL; ?>index.php?url=home/accounts" ><img class='icon' src="img/Users.png" />Perfiles</a></li>
+        <li><a tabindex="0" title="Configuracion"  href="<?PHP ECHO URL; ?>index.php?url=home/config_sys" ><img  class='icon' src="img/Cog.png" />Configuracion</a></li>
+        <?php } ?>
+                 
+        <li class="divider"></li>
+
+        <li><a  title="Salir del sistema" href="<?PHP ECHO URL; ?>index.php?url=login/login_out/" ><img  class='icon' src="img/Shut.png" />Salir</a></li>
+
+        </ul>
       </li>
     </ul>
   </div>
