@@ -139,10 +139,10 @@ foreach ($res as $value) {
         </a>
 
 <ul class="dropdown-menu">
+<?php   if($mod_invt_CK == 'checked'){?>
   <li><a tabindex="0" href="<?PHP ECHO URL; ?>index.php?url=ges_ventas/ges_orden_ventas"><img class='icon' src="img/Document Checklist.png" />Orden de Venta</a></li> 
-
+<?php }else{ ?>
   <li><a tabindex="0" href="<?PHP ECHO URL; ?>index.php?url=ges_ventas/ges_orden_ventas_direct"><img class='icon' src="img/Document Checklist.png" />Pedidos</a></li>
-
   <li><a tabindex="1" href="<?PHP ECHO URL; ?>index.php?url=ges_niveles_prec/gestion_precios"><img class='icon' src="img/Document Checklist.png" />Lista de Precios</a></li>
   
   <!-- <li><a tabindex="0"  href="<?PHP ECHO URL; ?>index.php?url=ges_ventas/ges_pro_ventas"><img class='icon' src="img/Money.png" />Factura de Ventas</a></li> -->
