@@ -66,7 +66,7 @@ public function ConexionSage(){
 
         $connected = $this->Query_value('CompanySession','isConnected','order by LAST_CHANGE DESC limit 1');
 
-    
+echo  $connected;   
 return $connected;
 
 }
@@ -333,17 +333,18 @@ $url = str_replace('@',  '/', $temp_url);
 
    $conn = $this->ConexionSage();
 
-
+   
         if($conn==0){
 
          echo '<script>
+                   console.log('.$conn.');
                    alert("Advertencia: El sistema se encuentra desconectado de SageConnect, Por favor verificar");
                    self.location="'.URL.'index.php?url='.$url.'";
                   </script>';
 
         }else{
-
-          echo '<script>self.location="'.URL.'index.php?url=home/index";</script>';
+               
+          echo '<script>console.log('.$conn.'); self.location="'.URL.'index.php?url=home/index";</script>';
            
         }
 
