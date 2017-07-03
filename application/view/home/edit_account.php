@@ -182,9 +182,8 @@ $pass_ck = $this->model->Query_value('SAX_USER','pass','where SAX_USER.onoff="1"
 
 
 
-
 //sube foto de perfil
-if(isset($_FILES["image"])){
+if($_FILES["image"]){
 
 	$target_dir = "img/user_avatar/";
 	$target_file = $target_dir . basename($_FILES["image"]["name"]); 
@@ -203,13 +202,16 @@ $foto_file = '';
 
 }
 
-
+//elimina foto de perfi
 if($_POST['trash_img']==1){
 
   unlink('img/user_avatar/'.$_POST['user_2'].".jpg");
   $foto_file = '';
 
 }
+
+
+
 
 $columns  = array( 'name'      => $_POST['name2'],
 	               'lastname'  => $_POST['lastname2'],
