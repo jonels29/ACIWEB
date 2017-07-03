@@ -330,7 +330,7 @@ $url = str_replace('@',  '/', $temp_url);
 
 }else{
 
-   $conn = $this->ConexionSage();
+   $conn = $this->sage_connected ;
 
    
         if($conn==0){
