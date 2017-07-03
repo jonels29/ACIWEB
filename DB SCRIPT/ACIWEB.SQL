@@ -946,6 +946,7 @@ CREATE TABLE IF NOT EXISTS `SAX_USER` (
   `inv_view` int(11) NOT NULL DEFAULT '0',
   `rep_view` int(11) NOT NULL DEFAULT '0',
   `stoc_view` int(11) NOT NULL DEFAULT '0',
+  `photo` VARCHAR(1) NULL DEFAULT NULL ,
   `last_login` timestamp NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 

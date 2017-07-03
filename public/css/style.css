@@ -434,6 +434,17 @@ float: center;
 
 }
 
+
+img .avatar {
+    width: 100%;
+    max-width: 90px;
+    padding: auto;
+    float: center;
+}
+
+
+
+
 @media (max-width: 700px) { 
 
 .page{ margin-top : 15%; }
@@ -485,7 +496,8 @@ padding: 0px;
 
 
 
-/* navbar */
+
+ /*navbar */
 .navbar-default {
  
 
@@ -645,7 +657,15 @@ div .menu_header{
          margin-left: 3px;
          margin-right: 3px;
 
+
+
          }        
+
+.profile{
+
+      border-radius: 50%;
+
+}
 
 /*GRAFICAS DEL DASHBOARD */
 
