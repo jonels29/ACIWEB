@@ -43,7 +43,7 @@ foreach ($res as $value) {
 
   }else{
 
-   $user_avatar = URL.'img/default-avatar.PNG';
+   $user_avatar = URL.'img/default-avatar.png';
 
   }
 
