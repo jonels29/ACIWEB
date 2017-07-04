@@ -19,7 +19,7 @@ if($value->{'mod_fact'}=='1') { $mod_fact_CK  = 'checked';  }else{ $mod_fact_CK 
 if($value->{'mod_invt'}=='1') { $mod_invt_CK  = 'checked';  }else{ $mod_invt_CK  = '';   }
 if($value->{'mod_rept'}=='1') { $mod_rept_CK  = 'checked';  }else{ $mod_rept_CK  = '';   }
 if($value->{'mod_stock'}=='1'){ $mod_stoc_CK  = 'checked';  }else{ $mod_stoc_CK  = '';   }
-
+if($value->{'mod_pro'}=='1' )  { $mod_pro_CK   = 'checked';  }else{ $mod_pro_CK  = '';   }
 }
 
 
@@ -161,6 +161,20 @@ foreach ($res as $value) {
 <ul class="dropdown-menu">
 
   <li><a tabindex="0" href="<?PHP ECHO URL; ?>index.php?url=ges_compras/crear_fact"><img class='icon' src="img/Document Checklist.png" />Factura de Compras</a></li>
+
+</ul>
+</li>
+<?php } ?>
+
+<?php   if($mod_pro_CK == 'checked'){ ?>
+<li class="dropdown">
+        <a tabindex="0"  data-toggle="dropdown" data-submenu="" aria-expanded="false">
+          <img class='icon' src="img/invoice.png" />Propuestas<span class="caret"></span>
+        </a>
+
+<ul class="dropdown-menu">
+
+  <li><a tabindex="0" href="<?PHP ECHO URL; ?>index.php?url=ges_propuestas/crear_propuesta"><img class='icon' src="img/Document Checklist.png" />Nueva Propuesta</a></li>
 
 </ul>
 </li>
