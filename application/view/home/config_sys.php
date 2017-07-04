@@ -381,12 +381,12 @@ unset($_POST);
 <DIV CLASS='SEPARADOR col-lg-12'></DIV>
 <DIV class='col-lg-12'>
  <ul class="nav nav-tabs" id="myTab">
-    <li class="active" ><a data-toggle="tab" href="#menu1">Compañia</a></li>
+    <li class="active" ><a data-toggle="tab" href="#menu1">Compañia</a></li> 
     <li><a data-toggle="tab" href="#menu2">Logo</a></li>
-    <li><a data-toggle="tab" href="#menu3">Facturacion</a></li>
     <li><a data-toggle="tab" href="#menu4">SMTP</a></li>
-    <li><a data-toggle="tab" href="#menu5">Modulos</a></li>
+    <li><a data-toggle="tab" href="#menu3">Facturas/Recibos</a></li>
     <li><a data-toggle="tab" href="#menu6">Ctas. GL</a></li>
+    <li><a data-toggle="tab" href="#menu5">Modulos</a></li>
   </ul>
 
   <div class="tab-content">
@@ -481,99 +481,105 @@ unset($_POST);
 	 </fieldset>
     </div>
 
-    <!--CONFIGURACION DE VENTAS -->
+    <!--CONFIGURACION DE FACTURAS Y RECIBOS -->
     <div id="menu3" class="tab-pane fade">
-      <fieldset>
- 	  	<form action="" role="form" class="form-horizontal" enctype="multipart/form-data" method="POST">
-		<input type="hidden" id="sale" name="sale" value="1" />
+
+    <div class="separador col-lg-12"></div>   
+    
+    <div class="col-lg-6">
+    	<fieldset>
+	 	  	<form action="" role="form" class="form-horizontal" enctype="multipart/form-data" method="POST">
+			<input type="hidden" id="sale" name="sale" value="1" />
+			<legend><h4>Tax ID</h4></legend>
+			<div class="form-group">
+			<div class="col-lg-12"></div>
+
+			<?php echo $table; ?>
+
+			<script type="text/javascript">
+				
+			function del_tax(id){
+
+			URL = document.getElementById('URL').value;
+
+			var datos= "url=bridge_query/del_tax/"+id;
+			var link= URL+"index.php";
+
+			  $.ajax({
+			      type: "GET",
+			      url: link,
+			      data: datos,
+			      success: function(res){
+
+					 alert("Se ha eliminado el tax seleccionado","ok"); 
+					 window.open("index.php?url=home/config_sys","_self");
+
+					}
+			   });
 
 
-		<fieldset>
-		<legend><h4>Tax ID</h4></legend>
-		<div class="form-group">
-		<div class="col-lg-12"></div>
+			}
+			</script>
 
-		<?php echo $table; ?>
+			<div class="separador col-lg-12"></div>
 
-		<script type="text/javascript">
+			<div class="col-lg-1"></div>
+			<div class="col-lg-4">
+				<input type="text" class="form-control" id="idtax" name="idtax" required/> 
+				<p class="help-block">ID del TAX que esta configurado en SAGE 50</p>
+			</div>
+
+			<div class="col-lg-4">
+				<input type="text" class="form-control" id="porc" name="porc"  placeholder="0.00" required/> 
+				<p class="help-block">% RATE o porcentaje del TAX que esta configurado en SAGE 50</p>
+			</div>
+
+			<div class="col-lg-2">
+			<input type="submit"  value="Agregar" class="btn btn-primary  btn-block text-lef" id="add" name="add"  />
+			</div>
+
+
+			</div>
 			
-		function del_tax(id){
-
-		URL = document.getElementById('URL').value;
-
-		var datos= "url=bridge_query/del_tax/"+id;
-		var link= URL+"index.php";
-
-		  $.ajax({
-		      type: "GET",
-		      url: link,
-		      data: datos,
-		      success: function(res){
-
-				 alert("Se ha eliminado el tax seleccionado","ok"); 
-				 window.open("index.php?url=home/config_sys","_self");
-
-				}
-		   });
+			</form>
+        </fieldset>
 
 
-		}
-		</script>
+    </div>
+      
+    <div class="col-lg-6">
+        <fieldset>
+			<form action="" role="form" class="form-horizontal" enctype="multipart/form-data" method="POST">
+			
+			<legend>Detalle en facturas/recibos</legend>
+	        
+			<div class="col-lg-6">
+			<fieldset>
+			<input type="CHECKBOX" name="fact_item_line" <?php echo $DIV_LINE_CK; ?> />&nbsp<label>Dividir lineas de detalles de Items en facturas</label><p class='help-block'>Permite no sumarizar la cantidades de Lotes seleccionados, se  mostraran en lineas independientes con el detalle del Item</p>  
+			</fieldset>
+			</div>
+	       
 
-		<div class="separador col-lg-12"></div>
-
-		<div class="col-lg-1"></div>
-		<div class="col-lg-4">
-			<input type="text" class="form-control" id="idtax" name="idtax" required/> 
-			<p class="help-block">ID del TAX que esta configurado en SAGE 50</p>
-		</div>
-
-		<div class="col-lg-4">
-			<input type="text" class="form-control" id="porc" name="porc"  placeholder="0.00" required/> 
-			<p class="help-block">% RATE o porcentaje del TAX que esta configurado en SAGE 50</p>
-		</div>
-
-		<div class="col-lg-2">
-		<input type="submit"  value="Agregar" class="btn btn-primary  btn-block text-lef" id="add" name="add"  />
-		</div>
-
-
-		</div>
-		</fieldset>
-		</form>
+	       
+			<div class="col-lg-4">
+			<fieldset>
+			<label>No. de lineas </label><input type="text" name="fact_no_line" value="<?php echo $NO_LINES; ?>" />&nbsp<p class='help-block'>Determina el No. de Lineas para las tablas con campos de entrada. Maximo 9999 lineas</p>
+	        </fieldset> 
+			</div>
 
 
-		<form action="" role="form" class="form-horizontal" enctype="multipart/form-data" method="POST">
-		<fieldset>
-		<legend>Detalle en facturas/recibos</legend>
-        
-		<div class="col-lg-2">
-		<fieldset>
-		<input type="CHECKBOX" name="fact_item_line" <?php echo $DIV_LINE_CK; ?> />&nbsp<label>Dividir lineas de detalles de Items en facturas</label><p class='help-block'>Permite no sumarizar la cantidades de Lotes seleccionados, se  mostraran en lineas independientes con el detalle del Item</p>  
-		</fieldset>
-		</div>
-       
-
-       
-		<div class="col-lg-2">
-		<fieldset>
-		<label>No. de lineas </label><input type="text" name="fact_no_line" value="<?php echo $NO_LINES; ?>" />&nbsp<p class='help-block'>Determina el No. de Lineas para las tablas con campos de entrada. Maximo 9999 lineas</p>
-        </fieldset> 
-		</div>
-
-
-		<div class="col-lg-12"></div>
-		<div class="col-lg-10"></div>
-	    <div class="col-lg-2">
-		<input type="submit"  value="Guardar" class="btn btn-primary btn-block text-lef" id="fact_detail_set" name="fact_detail_set"  />
-		</div>
- 		
-
-		</fieldset>
-		</form>
-
+			<div class="col-lg-12"></div>
+			<div class="col-lg-10"></div>
+		    <div class="col-lg-2">
+			<input type="submit"  value="Guardar" class="btn btn-primary btn-block text-lef" id="fact_detail_set" name="fact_detail_set"  />
+			</div>
+	 		
+			</form>
 		</fieldset>
     </div>
+
+   </div>
+
      <!--CONFIGURACION DE CORREO SMTP-->
     <div id="menu4" class="tab-pane fade">
       
@@ -667,11 +673,11 @@ unset($_POST);
 		<div class="col-lg-2">
 		<fieldset>
 			<input type="CHECKBOX" name="mod_sales" <?php echo $mod_sales_CK; ?> />&nbsp<label>Gestion de Ventas</label><br>
-			<input type="CHECKBOX" name="mod_fact" <?php echo  $mod_fact_CK; ?> />&nbsp<label>Gestion de Compras</label><br>
-			<input type="CHECKBOX" name="mod_invt" <?php echo  $mod_invt_CK; ?> />&nbsp<label>Gestion de Inventario</label><br>
-			<input type="CHECKBOX" name="mod_rept" <?php echo  $mod_rept_CK; ?> />&nbsp<label>Gestion de Reportes</label><br>
-			<input type="CHECKBOX" name="mod_stock" <?php echo $mod_stoc_CK; ?> />&nbsp<label>Gestion de Almacenes</label><br>
-			<input type="CHECKBOX" name="mod_pro" <?php echo $mod_pro_CK; ?> />&nbsp<label>Gestion de Propuestas</label><br>
+			<input type="CHECKBOX" name="mod_fact"  <?php echo  $mod_fact_CK; ?> />&nbsp<label>Gestion de Compras</label><br>
+			<input type="CHECKBOX" name="mod_invt"  <?php echo  $mod_invt_CK; ?> />&nbsp<label>Gestion de Inventario</label><br>
+			<input type="CHECKBOX" name="mod_rept"  <?php echo  $mod_rept_CK; ?> />&nbsp<label>Gestion de Reportes</label><br>
+			<input type="CHECKBOX" name="mod_stock" <?php echo $mod_stoc_CK;  ?> />&nbsp<label>Gestion de Almacenes</label><br>
+			<input type="CHECKBOX" name="mod_pro"   <?php echo $mod_pro_CK;   ?> />&nbsp<label>Gestion de Presupuesto</label><br>
 		</fieldset>
 		</div>
       <div class="separador col-lg-12"></div>

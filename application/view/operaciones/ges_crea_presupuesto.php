@@ -19,12 +19,17 @@ $('#ERROR').hide();
 
 <div  class="col-lg-12">
 <!-- contenido -->
-<h2>tittle</h2>
-<div class="title col-lg-12"></div>
+<h2>Propuestas</h2>
+	<div class="title col-lg-12"></div>
 
-<div class="col-lg-12">
+	<div class="col-lg-12">
+	<!--INI  contenido -->
+	    
 
 
+
+	<!--END contenido -->
+	</div>
 </div>
 </div>
 </div>

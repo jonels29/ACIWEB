@@ -19,7 +19,7 @@ if($value->{'mod_fact'}=='1') { $mod_fact_CK  = 'checked';  }else{ $mod_fact_CK 
 if($value->{'mod_invt'}=='1') { $mod_invt_CK  = 'checked';  }else{ $mod_invt_CK  = '';   }
 if($value->{'mod_rept'}=='1') { $mod_rept_CK  = 'checked';  }else{ $mod_rept_CK  = '';   }
 if($value->{'mod_stock'}=='1'){ $mod_stoc_CK  = 'checked';  }else{ $mod_stoc_CK  = '';   }
-if($value->{'mod_pro'}=='1' )  { $mod_pro_CK   = 'checked';  }else{ $mod_pro_CK  = '';   }
+if($value->{'mod_pro'}=='1' ) { $mod_pro_CK   = 'checked';  }else{ $mod_pro_CK  = '';    }
 }
 
 
@@ -35,6 +35,8 @@ foreach ($res as $value) {
   $INF_INV= $value->{'inv_view'};
   $INF_STO= $value->{'stoc_view'};
   $INF_REP= $value->{'rep_view'};
+  $INF_PRO= $value->{'pro_addmod'};
+  $INF_TPL= $value->{'tpl_addmod'};
   $PHOTO  = $value->{'photo'};
 
   if($PHOTO == 'x'){
@@ -84,7 +86,7 @@ foreach ($res as $value) {
   $INV_CK = ''; 
   }
 
-  if($INF_STO==1){//ver inventario
+  if($INF_STO==1){//ver UBICACIONES
 
   $STO_CK = 'checked';
 
@@ -93,7 +95,7 @@ foreach ($res as $value) {
   $STO_CK = ''; 
   }
 
-  if($INF_REP==1){//ver inventario
+  if($INF_REP==1){//ver REPORTES
 
   $REP_CK = 'checked';
 
@@ -102,7 +104,24 @@ foreach ($res as $value) {
   $REP_CK = ''; 
   }
 
+  if($INF_TPL==true){
 
+    $TPL_CK = '1';
+
+    }else{
+
+   $TPL_CK= '0'; 
+ }
+
+
+if($INF_PRO==true){
+
+    $PRO_CK = '1';
+
+    }else{
+
+    $PRO_CK = '0'; 
+    }
 
 }
 
@@ -166,15 +185,16 @@ foreach ($res as $value) {
 </li>
 <?php } ?>
 
-<?php   if($mod_pro_CK == 'checked'){ ?>
+<?php   if($mod_pro_CK == 'checked' AND ($PRO_CK ==  1 or $TPL_CK ==  1)){ ?>
 <li class="dropdown">
         <a tabindex="0"  data-toggle="dropdown" data-submenu="" aria-expanded="false">
-          <img class='icon' src="img/invoice.png" />Propuestas<span class="caret"></span>
+          <img class='icon' src="img/invoice.png" />Presupuesto<span class="caret"></span>
         </a>
 
 <ul class="dropdown-menu">
 
-  <li><a tabindex="0" href="<?PHP ECHO URL; ?>index.php?url=ges_propuestas/crear_propuesta"><img class='icon' src="img/Document Checklist.png" />Nueva Propuesta</a></li>
+<?php   if($PRO_CK ==  1 ){ ?>  <li><a tabindex="0" href="<?PHP ECHO URL; ?>index.php?url=ges_presupuesto/crear_presupuesto"><img class='icon' src="img/Document Checklist.png" />Crear presupuesto</a></li> <?php } ?>
+<?php   if($TPL_CK == 1 ){ ?>   <li><a tabindex="0" href="<?PHP ECHO URL; ?>index.php?url=ges_presupuesto/crear_template"><img class='icon' src="img/Document Checklist.png" />Modelo de presupuesto</a></li><?php } ?>
 
 </ul>
 </li>
@@ -219,12 +239,8 @@ foreach ($res as $value) {
         </a>
 
   <ul class="dropdown-menu" > 
-  <?php   if($mod_sales_CK == 'checked'){?>
-    <li ><a tabindex="0" href="<?PHP ECHO URL; ?>index.php?url=ges_ventas/ges_hist_ventas"><img class='icon' src="img/News.png"   />Ordenes de Ventas</a></li>
-  <?php } ?>
-  <?php   if($mod_invt_CK == 'checked' or $mod_sales_CK == 'checked' ){?>
-    <li ><a tabindex="0" href="<?PHP ECHO URL; ?>index.php?url=ges_ventas/ges_hist_sal_merc"><img class='icon' src="img/News.png" />Salida de Mercancia</a></li> 
-  <?php } ?>
+  <?php   if($mod_sales_CK == 'checked'){?><li ><a tabindex="0" href="<?PHP ECHO URL; ?>index.php?url=ges_ventas/ges_hist_ventas"><img class='icon' src="img/News.png"   />Ordenes de Ventas</a></li> <?php } ?>
+  <?php   if($mod_invt_CK == 'checked' or $mod_sales_CK == 'checked' ){?><li ><a tabindex="0" href="<?PHP ECHO URL; ?>index.php?url=ges_ventas/ges_hist_sal_merc"><img class='icon' src="img/News.png" />Salida de Mercancia</a></li> <?php } ?>
  <!--    <li ><a tabindex="0" href="<?PHP ECHO URL; ?>index.php?url=ges_ventas/ges_pro_hist_ventas"><img class='icon' src="img/invoice.png" />Facturas de ventas</a></li>  -->
     <li class="divider"></li>
     <li><a tabindex="0" href="<?PHP ECHO URL; ?>index.php?url=ges_reportes/rep_reportes"><img class='icon' src="img/Chart Pie.png" />Otros</a></li> 
@@ -235,11 +251,9 @@ foreach ($res as $value) {
 </ul>
 
 
-
-
-     <!--left side-->
-        <ul class="nav navbar-nav navbar-right">
-           <li class="dropdown">
+<!--left side-->
+<ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
                 <a tabindex="0" data-toggle="dropdown" data-submenu="" aria-expanded="false">
                 <img class='icon profile'  src="<?php echo  $user_avatar; ?>" /> <?php echo $this->model->active_user_name.' '.$this->model->active_user_lastname; ?><span class="caret"></span>
                 </a>
@@ -249,7 +263,7 @@ foreach ($res as $value) {
         <li><a tabindex="0" title="Ir al perfil de usuario"  href="<?PHP ECHO URL; ?>index.php?url=home/edit_account/<?php echo $this->model->active_user_id; ?>"><img class='icon' src="img/Contact.png" />Perfil&nbsp;&nbsp;</a></li>
 
         <?php if($this->model->active_user_role=='admin'){?>
-        <li><a tabindex="0" title="Administrar Usuarios" href="<?PHP ECHO URL; ?>index.php?url=home/accounts" ><img class='icon' src="img/Users.png" />Perfiles</a></li>
+        <li><a tabindex="0" title="Administrar Usuarios" href="<?PHP ECHO URL; ?>index.php?url=home/accounts" ><img class='icon' src="img/Users.png" />Cuentas de usuarios</a></li>
         <li><a tabindex="0" title="Configuracion"  href="<?PHP ECHO URL; ?>index.php?url=home/config_sys" ><img  class='icon' src="img/Cog.png" />Configuracion</a></li>
         <?php } ?>
                  

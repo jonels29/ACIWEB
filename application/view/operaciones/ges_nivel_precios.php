@@ -229,14 +229,15 @@ $TABLE = '`PRI_LIST_ITEM`';
 
 					foreach($data['cells'][$i] as $KEY=>$row) 
 					{
-						   
-	                            if($row !=''){
+						  
+						  if($row !=''){
 	                   	
 							if ($KEY=='1')   	$values['2'] = utf8_decode($row) ;
 							if ($KEY=='2')   	$values['3'] = utf8_decode($row) ;
 							if ($KEY=='3')   	$values['4'] = utf8_decode($row) ;
-							if ($KEY=='4')   	$values['5'] = utf8_decode($row) ;      	
-	                              }
+							if ($KEY=='4')   	$values['5'] = utf8_decode($row) ;      
+
+	                       }
 
 					
 				   }

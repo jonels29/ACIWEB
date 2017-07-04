@@ -25,6 +25,12 @@ foreach ($res as $value) {
   $INF_INV= $value->{'inv_view'};
   $INF_STO= $value->{'stoc_view'};
   $INF_REP= $value->{'rep_view'};
+  $PRO_MOD= $value->{'pro_addmod'};
+  $TPL_MOD= $value->{'tpl_addmod'};
+
+
+
+
   $PHOTO  = $value->{'photo'};
 
   if($PHOTO == 'x'){
@@ -91,7 +97,24 @@ foreach ($res as $value) {
   $REP_CK = ''; 
   }
 
+  if($PRO_MOD==1){//ver presupuesto
 
+  $PRO_CK = 'checked';
+
+  }else{
+
+  $PRO_CK = ''; 
+  }
+
+
+  if($TPL_MOD==1){//ver TEMPLATE
+
+  $TPL_CK = 'checked';
+
+  }else{
+
+  $TPL_CK = ''; 
+  }
 
 }
 
@@ -105,6 +128,8 @@ if($this->model->active_user_role!='admin'){
 	$REP_CK .= ' disabled';
 	$STO_CK .= ' disabled';
 	$INV_CK .= ' disabled';
+	$TPL_CK .= ' disabled';
+	$PRO_CK .= ' disabled';
 
 }  
 
@@ -163,6 +188,26 @@ if($_POST['flag2']=='1'){
 		}else{
 
 		$set_rep_chk = '0';	
+		}
+
+
+		if($_POST['tpl_chk']==true){
+
+		$set_tpl_chk = '1';
+
+		}else{
+
+		$set_tpl_chk = '0';	
+		}
+
+
+		if($_POST['pro_chk']==true){
+
+		$set_pro_chk = '1';
+
+		}else{
+
+		$set_pro_chk = '0';	
 		}
 		
 
@@ -223,6 +268,8 @@ $columns  = array( 'name'      => $_POST['name2'],
 	               'inv_view'  => $set_inv_chk,
 	               'rep_view'  => $set_rep_chk,
 	               'stoc_view' => $set_sto_chk,
+	               'tpl_addmod' => $set_tpl_chk,
+	               'pro_addmod' => $set_pro_chk,
 	               'photo'     => $foto_file);
 
 $clause = 'id="'.$_POST['user_2'].'"';
@@ -377,6 +424,8 @@ self.location="'.URL.'index.php?url=home/edit_account/'.$id.'";
 <?PHP if ($mod_invt_CK  == 'checked') { ?><input type="CHECKBOX" name="inv_chk" <?php echo $INV_CK;  ?> />&nbsp<label>Gestionar Inventario</label><br><?php } ?>
 <?PHP if ($mod_stoc_CK  == 'checked') { ?><input type="CHECKBOX" name="sto_chk" <?php echo $STO_CK;  ?> />&nbsp<label>Gestionar Ubicaciones</label><br><?php } ?>
 <?PHP if ($mod_rept_CK  == 'checked') { ?><input type="CHECKBOX" name="rep_chk" <?php echo $REP_CK;  ?> />&nbsp<label>Gestionar Reportes</label><br><?php } ?>
+<?PHP if ($mod_pro_CK   == 'checked') { ?><input type="CHECKBOX" name="pro_chk" <?php echo $PRO_CK;  ?> />&nbsp<label>Crear/Modificar presupuesto</label><br><?php } ?>
+<?PHP if ($mod_pro_CK   == 'checked') { ?><input type="CHECKBOX" name="tpl_chk" <?php echo $TPL_CK;  ?> />&nbsp<label>Crear/Modificar Modelos de presupuesto</label><br><?php } ?>
 </fieldset>
 </div>
 
