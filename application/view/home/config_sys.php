@@ -180,6 +180,15 @@ if(isset($_REQUEST['mod'])){
 		$mod_stock = '0';	
 
 		}
+	if($_POST['mod_pro']==true){
+
+		$mod_pro = '1';
+
+		}else{
+
+		$mod_pro = '0';	
+
+		}
 
 
 $value = array(
@@ -187,7 +196,8 @@ $value = array(
 	'mod_fact'  => $mod_fact,
 	'mod_invt'  => $mod_invt,
 	'mod_rept'  => $mod_rept,
-	'mod_stock' => $mod_stock );
+	'mod_stock' => $mod_stock,
+	'mod_pro'   => $mod_pro);
 
 
 $this->model->delete('MOD_MENU_CONF','');
@@ -277,8 +287,8 @@ if($value->{'mod_sales'}=='1'){ $mod_sales_CK = 'checked'; }else{ $mod_sales_CK 
 if($value->{'mod_fact'}=='1'){ $mod_fact_CK  = 'checked'; }else{ $mod_fact_CK = '';  }
 if($value->{'mod_invt'}=='1'){ $mod_invt_CK = 'checked'; }else{ $mod_invt_CK  = '';  }
 if($value->{'mod_rept'}=='1'){ $mod_rept_CK = 'checked'; }else{ $mod_rept_CK = '';  }
-if($value->{'mod_stock'}=='1'){ $mod_stoc_CK = 'checked'; }else{ $mod_stoc_CK = '';  }
-
+if($value->{'mod_stock'}=='1'){$mod_stoc_CK = 'checked'; }else{ $mod_stoc_CK = '';  }
+if($value->{'mod_pro'}=='1'){  $mod_pro_CK  = 'checked'; }else{ $mod_pro_CK = '';  }
 }
 
 
@@ -539,7 +549,7 @@ unset($_POST);
         
 		<div class="col-lg-2">
 		<fieldset>
-		<input type="CHECKBOX" name="fact_item_line" <?php echo $DIV_LINE_CK; ?> />&nbsp<label>Dividir lineas de detalles de Items en facturas</label><p class='help-block'>Cuando la cantidad exceda de 99,999.99</p>  
+		<input type="CHECKBOX" name="fact_item_line" <?php echo $DIV_LINE_CK; ?> />&nbsp<label>Dividir lineas de detalles de Items en facturas</label><p class='help-block'>Permite no sumarizar la cantidades de Lotes seleccionados, se  mostraran en lineas independientes con el detalle del Item</p>  
 		</fieldset>
 		</div>
        
@@ -547,10 +557,10 @@ unset($_POST);
        
 		<div class="col-lg-2">
 		<fieldset>
-		<label>Numero de lineas </label><input type="text" name="fact_no_line" value="<?php echo $NO_LINES; ?>" />&nbsp<p class='help-block'>Maximo 9999 lineas</p>
+		<label>No. de lineas </label><input type="text" name="fact_no_line" value="<?php echo $NO_LINES; ?>" />&nbsp<p class='help-block'>Determina el No. de Lineas para las tablas con campos de entrada. Maximo 9999 lineas</p>
         </fieldset> 
 		</div>
-		
+
 
 		<div class="col-lg-12"></div>
 		<div class="col-lg-10"></div>
@@ -661,6 +671,7 @@ unset($_POST);
 			<input type="CHECKBOX" name="mod_invt" <?php echo  $mod_invt_CK; ?> />&nbsp<label>Gestion de Inventario</label><br>
 			<input type="CHECKBOX" name="mod_rept" <?php echo  $mod_rept_CK; ?> />&nbsp<label>Gestion de Reportes</label><br>
 			<input type="CHECKBOX" name="mod_stock" <?php echo $mod_stoc_CK; ?> />&nbsp<label>Gestion de Almacenes</label><br>
+			<input type="CHECKBOX" name="mod_pro" <?php echo $mod_pro_CK; ?> />&nbsp<label>Gestion de Propuestas</label><br>
 		</fieldset>
 		</div>
       <div class="separador col-lg-12"></div>
