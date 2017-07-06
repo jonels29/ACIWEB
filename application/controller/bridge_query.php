@@ -967,8 +967,8 @@ $id_compania= $this->model->id_compania;
 $id_user_active = $this->model->active_user_id;
 
 $reasonToAd = $_REQUEST['REASON'];
-
 $Jobinfo = $_REQUEST['JOB'];
+
 list($JobDesc,$JobPhase,$JobCost) = explode(';', $Jobinfo);
 
 $orderID = $this->model->Get_Ref_No(); 
@@ -1006,7 +1006,7 @@ $values = array(
 'Quantity' => $qty,
 'Job_id_int' => $JobID,
 'USER' => $id_user_active,
-'JobID' => $JobDesc,
+'JobID' => $JobDesc,  
 'JobPhaseID' =>  $JobPhase,
 'JobCostCodeID' => $JobCost,
 'UnitCost' => $UnitCost ,
@@ -3480,7 +3480,7 @@ table.yadcf([
       
   });
   </script>
-  <table id="table_report" class="tableReport table table-striped" cellspacing="0"  >
+  <table id="table_report" class="tableReport table table-striped table-bordered" cellspacing="0"  >
     <thead>
       <tr>
         <th>No. Referencia</th>
@@ -3489,20 +3489,9 @@ table.yadcf([
         <th>Proyecto</th>
         <th>Procesado por:</th>
         <th>Estado</th>
-        <th width="5%">Detalle</th>
       </tr>
     </thead>
-    <tfoot>
-      <tr>
-        <th>No. Referencia</th>
-        <th>Fecha</th>
-        <th>Descripcion</th>
-        <th>Proyecto</th>
-        <th>Procesado por:</th>
-        <th>Estado</th>
-        <th>Detalle</th>
-      </tr>
-    </tfoot>';
+';
 
 
 
@@ -3552,13 +3541,12 @@ $lastname = $value->{'lastname'};
 $resp = '"'.$name.' '.$lastname.'"';
 
 $table.= "<tr>
-    <td >".$filter->{'Reference'}."</td>
+    <td ><a href='#' onclick='javascript: show_invadj(".$URL.",".$ID.",".$resp."); ' >&nbsp".$filter->{'Reference'}."</a></td>
     <td >".$filter->{'Date'}."</td>
     <td >".$filter->{'ReasonToAdjust'}.'</td>
     <td >'.$filter->{'JobID'}.'</td>
     <td >'.$name.' '.$lastname.'</td>
     <td '.$style.'>'.$status."</td>
-    <td ><a href='#' onclick='javascript: show_invadj(".$URL.",".$ID.",".$resp."); ' ><i style='color:blue' class='fa fa-search'></i></a>   </td>
    </tr>";
 
 }

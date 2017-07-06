@@ -3,7 +3,7 @@ $(document).ready(function(){
 
 var table =  $("#products").dataTable({
         aLengthMenu: [
-        [5,10, 25,50,-1], [5,10, 25, 50,"All"]
+        [10,20, 25,50,-1], [10,20, 25, 50,"All"]
               ]
             });
 
@@ -11,7 +11,6 @@ var table =  $("#products").dataTable({
 {column_number : 1},
 {column_number : 2},
 ]);
-
 
   $("#modal_table").dataTable({
         aLengthMenu: [
@@ -33,7 +32,7 @@ var table =  $("#products").dataTable({
 <div class="separador col-lg-12"></div>
 
 <input type="hidden" id='URL' value="<?php ECHO URL; ?>" />
-<div class="col-lg-6">
+<div class="col-lg-12">
 
 <!-- select clientes -->
 <div class="col-lg-12">
@@ -41,79 +40,103 @@ var table =  $("#products").dataTable({
   <fieldset>
     <legend><h4>Informacion General</h4></legend>
         
-        <div class="col-lg-12"> 
-         <div class="col-lg-12">
-         <fieldset>
-      <p><strong>Proyecto</strong></p>
-        
-      <select  id="jobs" name="jobs" class="select col-lg-12" onchange="set_job(this.value);" required>
+        <div class="col-lg-6"> 
 
-      <option selected disabled></option>
+           <div class="col-lg-12">
+              <fieldset>
+                    <p><strong>Proyecto</strong></p>
+                      
+                    <select  id="jobs" name="jobs" class="select col-lg-12" onchange="set_job(this.value);" required>
 
-      <?php  
-      $JOBS = $this->model-> get_JobList(); 
+                    <option selected disabled></option>
 
-      foreach ($JOBS as $datos) {
+                    <?php  
+                    $JOBS = $this->model-> get_JobList(); 
+
+                    foreach ($JOBS as $datos) {
+                                              
+                    $JOBS_INF = json_decode($datos);
+                    echo '<option value="'.$JOBS_INF->{'JobID'}.'" >'.$JOBS_INF->{'Description'}."</option>";
+
+                    }
+                    ?>
                                 
-      $JOBS_INF = json_decode($datos);
-      echo '<option value="'.$JOBS_INF->{'JobID'}.'" >'.$JOBS_INF->{'Description'}."</option>";
+                  </select>   
+             </fieldset>
+           </div>
 
-      }
-      ?>
-                  
-    </select>   
-     </fieldset>
-         </div>
-         <div class="separador col-lg-12"></div>
-         <div class="col-lg-6" >
-            <fieldset>
-      <p><strong>Fase</strong></p>
-        
-      <select  id="jobphase" name="jobphase" class="select col-lg-12" onchange="set_phase(this.value);" required>
+           <div class="separador col-lg-12"></div>
 
-      <option selected disabled></option>
+             <div class="col-lg-6" >
+                  <fieldset>
+                    <p><strong>Fase</strong></p>
+                      
+                    <select  id="jobphase" name="jobphase" class="select col-lg-12" onchange="set_phase(this.value);" required>
 
-      <?php  
-      $phase = $this->model->get_phaseList(); 
+                    <option selected disabled></option>
 
-      foreach ($phase as $datos) {
+                    <?php  
+                    $phase = $this->model->get_phaseList(); 
+
+                    foreach ($phase as $datos) {
+                                              
+                    $phase_INF = json_decode($datos);
+                    echo '<option value="'.$phase_INF->{'PhaseID'}.'" >'.$phase_INF->{'Description'}."</option>";
+
+                    }
+                    ?>
                                 
-      $phase_INF = json_decode($datos);
-      echo '<option value="'.$phase_INF->{'PhaseID'}.'" >'.$phase_INF->{'Description'}."</option>";
+                  </select>   
+               </fieldset>
+             </div>
 
-      }
-      ?>
-                  
-    </select>   
-     </fieldset>
-       </div>
-      
-        <div class="col-lg-6" >
-            <fieldset>
-      <p><strong>Centro de Costo</strong></p>
-        
-      <select  id="jobcost" name="jobcost" class="select col-lg-12" onchange="set_cost(this.value);" required>
 
-      <option selected disabled></option>
+           <div class="col-lg-6" >
+              <fieldset>
+                  <p><strong>Centro de Costo</strong></p>
+                    
+                  <select  id="jobcost" name="jobcost" class="select col-lg-12" onchange="set_cost(this.value);" required>
 
-      <?php  
-      $cost = $this->model->get_costList(); 
+                  <option selected disabled></option>
 
-      foreach ($cost as $datos) {
-                                
-      $cost_INF = json_decode($datos);
-      echo '<option value="'.$cost_INF->{'CostCodeID'}.'" >'.$cost_INF->{'Description'}."</option>";
+                  <?php  
+                  $cost = $this->model->get_costList(); 
 
-      }
-      ?>
-                  
-    </select>   
-     </fieldset>
-         </div>
+                  foreach ($cost as $datos) {
+                                            
+                  $cost_INF = json_decode($datos);
+                  echo '<option value="'.$cost_INF->{'CostCodeID'}.'" >'.$cost_INF->{'Description'}."</option>";
 
+                  }
+                  ?>
+                              
+                </select>   
+             </fieldset>
+           </div>
         </div>
 
+
+         <div class="col-lg-6" >
+           <fieldset>
+             <p><strong>Observaciones</strong></p>
+               <textarea class="col-lg-12"  rows="2" id="reasonToAdj" name="reasonToAdj"></textarea> 
+         </fieldset> 
+         </div>
+
+        
+
+        <div class="col-lg-10"></div>
+        <div class="col-lg-2">
+
+          <input type="submit" onclick="send_sales_order();" class="btn btn-primary  btn-sm btn-icon icon-right" value="Procesar" />
+          
+        </div>  
+
+
     </fieldset>
+
+
+
 </div>
 
 <div class="separador col-lg-12"></div>
@@ -123,49 +146,42 @@ var table =  $("#products").dataTable({
 <fieldset>
 <legend><h4>Productos</h4></legend>
 
-<table id="products" class="display nowrap table table-striped responsive" cellspacing="0"  >
+<table id="products" class="table table-striped table-bordered" cellspacing="0"  >
             <thead>
               <tr>
                 <th width="5%"></th>
                 <th width="30%">Codigo</th>
                 <th width="50%">Descripcion</th>
-                <th width="20%">Unidad</th>
-                <th width="10%">Cantidad</th>
+                <th width="5%">Unidad</th>
+                <th width="20%">Cantidad</th>
 
               </tr>
             </thead>
-          
-          
+
             <tbody> 
-        <?php  
+            <?php  
+                 $Item =  $this->model->get_ProductsList(); 
 
-      
+                 foreach ($Item as $datos) {
 
- 
-     $Item =  $this->model->get_ProductsList(); 
+                     $Item = json_decode($datos);
+                    
+                     if($Item->{'QtyOnHand'}>=1){
+                      
+                      $ID ='"'.$Item->{'ProductID'}.'"';
+                      $NAME='"'.$Item->{'Description'}.'"';
+                      $PRICE ='"'.number_format($Item->{'Price1'}, 2, '.', ',').'"';
+                                      
+                      echo  "<tr>
+                           <td width='5%' ><a title='Agregar a la orden' data-toggle='modal' data-target='#myModal' href='javascript:void(0)' onclick='javascript: modal(".$ID.",".$NAME.",".$PRICE."); ' ><i style='color:green' class='fa fa-plus'></i></a></td>
+                          <td width='30%' id=".$Item->{'ProductID'}."><strong> ".$Item->{'ProductID'}."</strong></td>
+                          <td width='50%' id=".$Item->{'ProductID'}.$Item->{'Description'}."><strong>".$Item->{'Description'}.'</strong></td> 
+                          <td width="5%" class="numb" id='.$Item->{'ProductID'}.$Item->{'Description'}.'-price'.">".$Item->{'UnitMeasure'}.'</td>
+                          <td width="20%" class="numb" id="'.$Item->{'ProductID'}.'qty'.'" >'.number_format($Item->{'QtyOnHand'},0, '.', ',').'</td></tr>';
 
-        foreach ($Item as $datos) {
-
-          $Item = json_decode($datos);
-        
-         if($Item->{'QtyOnHand'}>=1){
-          
-          $ID ='"'.$Item->{'ProductID'}.'"';
-          $NAME='"'.$Item->{'Description'}.'"';
-          $PRICE ='"'.number_format($Item->{'Price1'}, 2, '.', ',').'"';
-                          
-        echo  "<tr><td width='5%'><a title='Agregar a la orden' data-toggle='modal' data-target='#myModal' href='javascript:void(0)' onclick='javascript: modal(".$ID.",".$NAME.",".$PRICE."); ' ><i style='color:green' class='fa fa-plus'></i></a></td>
-            <td width='30%' id=".$Item->{'ProductID'}."><strong> ".$Item->{'ProductID'}."</strong></td>
-            <td width='50%' id=".$Item->{'ProductID'}.$Item->{'Description'}."><strong>".$Item->{'Description'}.'</strong></td> 
-            <td width="20%" class="numb" id='.$Item->{'ProductID'}.$Item->{'Description'}.'-price'.">".$Item->{'UnitMeasure'}.'</td>
-            <td width="10%" class="numb" id="'.$Item->{'ProductID'}.'qty'.'" >'.number_format($Item->{'QtyOnHand'},0, '.', ',').'</td></tr>';
-
-
-          }
-
-          
-  } ?>
-              
+                      }
+                  } 
+            ?>            
             </tbody>
           </table>
 
@@ -206,72 +222,19 @@ var link= URL+"index.php";
 
 
 <!-- oredn-->
-<div class="col-lg-6" >
+<div class="col-lg-12" >
   
 <fieldset>
-<legend>Orden de salida</legend>
+<legend>Detalle</legend>
 
 <input type="hidden" id='user' value="<?php echo $active_user_id; ?>" />
 
-<div class="col-lg-12">
- <div   class="col-lg-6"> 
-                 
-    <label style="display:inline">Referencia </label><INPUT class="input-control" type="text" name="no_order" id="no_order" readonly value="
-     <?php echo  $this->model->Get_Ref_No(); ?>" />
-</div>
-
-<div  class="col-lg-2"></div>
-  <div   class="col-lg-4">
-  <label> Fecha : </label><input style="float:right; text-align: center;" class="input-control" name="date" id="date" value="<?php echo date("Y-m-d"); ?>" /></label>
-  </div>
-
-</div>
-    <div class="title col-lg-12"></div>
-  <!-- Client and Payment Details -->
-         <div class="col-lg-8">
-
-         <fieldset>
-          <input type="hidden" name="jobID_db" id="jobID_db" value="" />
-          <input type="hidden" name="phaseID_db" id="phaseID_db"" value="" />
-          <input type="hidden" name="costID_db" id="costID_db" value="" />
-
-
-
-
-          <div class="col-lg-12">
-            <strong>Proyecto : </strong><label   id="JobDesc" name="JobDesc"></label><br>
-
-            <strong>Fase : </strong><label  id="PhaseDesc" name="PhaseDesc"></label><br>
-
-            <strong>Centro de Costo : </strong><label   id="CostDesc" name="CostDesc"></label>
-            
-          </div>
-         </fieldset>
-     </div> 
-    
-    <div  class="separador col-lg-12"></div>
-     <div class="col-lg-12">
-
-         <fieldset>
-          
-          <div class="col-lg-12">
-            <strong>Nota: </strong><textarea rows="2" cols="50" id="reasonToAdj" name="reasonToAdj">  </textarea>
-
-            
-          </div>
-         </fieldset>
-    </div> 
-
-
-              <!-- ESTO PUEDE VARIAR SEGUN SEA EL CASO -->
+  <!-- ESTO PUEDE VARIAR SEGUN SEA EL CASO -->
   <input type="text" id="taxid" name="taxid" value="1" hidden/>
-              <!-- valores ocultos -->
+  <!-- valores ocultos -->
   <input type="text" id="cust_id" name="cust_id" hidden/>
   <input type="text" id="cust_comp" name="cust_comp" hidden/>
-
-
-  <div class="title col-lg-12"></div>
-  <div class="separador col-lg-12"></div>         
+      
             
   <!-- Invoice Entries -->
   <table class="table table-bordered">
@@ -289,16 +252,7 @@ var link= URL+"index.php";
                 
   </tbody>
   </table>
-  
-        
 <!-- Invoice Options Buttons -->
-<div  class="separador col-lg-12" ></div> 
-<div class="col-lg-10"></div>
-<div class="col-lg-2">
-
-  <input type="submit" onclick="send_sales_order();" class="btn btn-primary  btn-sm btn-icon icon-right" value="Procesar" />
-  
-</div>  
           
 </fieldset>
 
@@ -356,29 +310,6 @@ var link= URL+"index.php";
 var LineArray = []; //array para los items de la cotizacion
 var count = 0;
 var itemsArray = [];
-
-function set_job(jobid){
-
-document.getElementById('jobID_db').value = jobid;
-document.getElementById('JobDesc').innerHTML = jobid;
-
-}
-
-function set_phase(phaseid){
-
-document.getElementById('phaseID_db').value = phaseid;
-document.getElementById('PhaseDesc').innerHTML= phaseid;
-
-}
-
-function set_cost(costid){
-
-document.getElementById('costID_db').value = costid;
-document.getElementById('CostDesc').innerHTML=costid;
-
-}
-
-
 
 
 function agregar_pro_sale_sale(id,item,price,lote,venc,ruta,max,qty){
@@ -472,8 +403,6 @@ for(var i=1; i<theTbl.rows.length ;i++) //BLUCLE PARA LEER LINEA POR LINEA LA TA
 
 
   idline   = theTbl.rows[i].cells[3].innerHTML+theTbl.rows[i].cells[2].innerHTML;
-  //cell1  = document.getElementById(idline).checked;
-  //taxfield = theTbl.rows[i].cells[3].innerHTML+theTbl.rows[i].cells[2].innerHTML+'taxable';
   qty      = theTbl.rows[i].cells[2].innerHTML+theTbl.rows[i].cells[1].innerHTML+'qty';
   iditem   = document.getElementById('item_id_modal').value;
   descitem = document.getElementById('desc_id_modal').value;
@@ -586,34 +515,24 @@ function send_sales_order(){
   if (r == true) {
 
     var arrLen = LineArray.length;
-      var count= 1;
+    var count= 1;
 
     var reasonToAdj = document.getElementById('reasonToAdj').value;
-
-        
-                    
-                           
-    var job=document.getElementById('jobID_db').value;
-    var phase=document.getElementById('phaseID_db').value;
-        var cost=document.getElementById('costID_db').value;
-        
-        var jobinfo = job+';'+phase+';'+cost;
-
-    var SalesOrder=document.getElementById('no_order').value;
-            
-    var user=document.getElementById('active_user_id').value;
-
+    var job=document.getElementById('jobs').value;
+    var phase=document.getElementById('jobphase').value;
+    var cost=document.getElementById('jobcost').value;  
+    var jobinfo = job+';'+phase+';'+cost;
+    
           
           
     URL = document.getElementById('URL').value;
 
   
-  if(SalesOrder  && reasonToAdj){
+  if(reasonToAdj){
 
          
       var link= URL+"index.php";
 
-      console.log(LineArray);
 
       //REGISTROS DE ITEMS 
         $.ajax({
@@ -637,38 +556,6 @@ function send_sales_order(){
            }
         });  
       //FIN REGISTROS DE ITEMS         
-
-  /*      $.each(LineArray, function(index,value) {
-
-
-                          setTimeout( function(){ 
-
-                            count++;
-
-          var datos= "url=bridge_query/set_sal_merc/"+value.trim()+'/'+reasonToAdj.trim()+'/'+count+'/'+arrLen+'/'+jobinfo.trim();
-
-
-              var link = URL+"index.php";
-
-              $.ajax({
-                type: "GET",
-                url: link,
-                data: datos,
-                success: function(res){
-
-                  console.log(res);
-                    
-                  if(res==0){
-                     msg(URL+"index.php",SalesOrder);
-                  }
-
-                      }
-              });
-
-            }, 500);
-                                        
-          });   */
-
   
              }else{
 
@@ -688,30 +575,27 @@ function send_sales_order(){
       }
 
             
-        }
-
-        function msg(link,SalesOrder){
+  }
 
 
-          alert("La orden se ha enviado con exito");
+function msg(link,SalesOrder){
 
-          var R = confirm('Desea imprimir la orden de venta?');
 
-          if(R==true){
+          alert("La Salida de Mercancia se ha enviado con exito");
+   
+          var R = confirm('Desea imprimir el reporte ?');
 
-                
+        if(R==true){
+     
          count = 1;
-                 LineArray.length='';
-                           
-                 window.open(link+'?url=ges_ventas/ges_print_SalMerc/'+SalesOrder,'_self');
-                 
-
+         LineArray.length='';
+         window.open(link+'?url=ges_ventas/ges_print_SalMerc/'+SalesOrder,'_self');
 
           }else{
 
-        count = 1;
-              LineArray.length='';
-        location.reload();
+          count = 1;
+          LineArray.length='';
+          location.reload();
 
           }
 
@@ -722,7 +606,7 @@ function send_sales_order(){
 
 
 
-      function send_data_sales(data){
+function send_data_sales(data){
 
  
 

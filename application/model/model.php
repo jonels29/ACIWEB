@@ -825,7 +825,9 @@ return $ORDER;
 
 public function Get_sal_merc_to_invoice($id){
 
-$ORDER= $this->Query("SELECT * FROM InventoryAdjust_Imp where Reference='".$id."' and ID_compania='".$this->id_compania."';"); 
+$sql = "SELECT * FROM InventoryAdjust_Imp where Reference='".$id."' and ID_compania='".$this->id_compania."';";
+
+$ORDER= $this->Query($sql); 
 
 return $ORDER;
 

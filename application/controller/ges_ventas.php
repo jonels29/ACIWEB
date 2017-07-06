@@ -291,7 +291,7 @@ public function ges_hist_sal_merc(){
 public function  ges_print_SalMerc($id){
 
  
-$id = trim(preg_replace('/000+/','',$id));
+//$id = trim(preg_replace('/000+/','',$id));
 
  $res = $this->model->verify_session();
 
