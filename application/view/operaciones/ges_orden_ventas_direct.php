@@ -781,7 +781,7 @@ function set_price_fields(){
                     foreach ($tax  as $datos) {
                       $tax  = json_decode($datos);
 
-                      if($tax->{'taxid'}=='EXENTO'){
+                      if($tax->{'DEFAULT'}=='1'){
 
                         $selected = 'selected';
 

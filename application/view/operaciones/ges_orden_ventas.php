@@ -137,7 +137,7 @@ echo '<input type="hidden" id="FAC_DET_CONF" value="" />';
                     foreach ($tax  as $datos) {
                       $tax  = json_decode($datos);
 
-                      if($tax->{'taxid'}=='EXENTO'){
+                      if($tax->{'DEFAULT'}=='1'){
 
                         $selected = 'selected';
 

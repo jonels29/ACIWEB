@@ -16,6 +16,27 @@ $(document).ready(function() {
     $(document.body).on("click", "a[data-toggle]", function(event) {
         location.hash = this.getAttribute("href");
     });
+
+// the selector will match all input controls of type :checkbox
+// and attach a click event handler 
+$("input:checkbox").on('click', function() {
+  // in the handler, 'this' refers to the box clicked on
+  var $box = $(this);
+  if ($box.is(":checked")) {
+    // the name of the box is retrieved using the .attr() method
+    // as it is assumed and expected to be immutable
+    var group = "input:checkbox[name='" + $box.attr("name") + "']";
+    // the checked state of the group/box on the other hand will change
+    // and the current value is retrieved using .prop() method
+    $(group).prop("checked", false);
+    $box.prop("checked", true);
+  } else {
+    $box.prop("checked", false);
+  }
+});
+
+
+
 });
 
 $(window).on("myTab", function() {
@@ -23,6 +44,38 @@ $(window).on("myTab", function() {
     $("a[href='" + anchor + "']").tab("show");
 });
 
+
+function set_default(taxid){
+
+
+URL = document.getElementById('URL').value;
+
+var datos= "url=bridge_query/SET_TAX_DEFUALT/"+taxid;
+var link= URL+"index.php";
+
+  $.ajax({
+      type: "GET",
+      url: link,
+      data: datos,
+      success: function(res){
+
+      	if(res.trim()==''){
+
+          MSG_CORRECT('El TAX ID '+taxid+' se ha seleccionado como predeterminado.',0);
+
+      	}else{
+
+           MSG_ERROR(res,0);
+
+      	}
+   
+          
+
+     
+        }
+   });
+
+}
 
 </script>
 
@@ -116,6 +169,7 @@ echo '<script> alert("Se ha actualizado con exito"); window.open("'.URL.'index.p
 
 //ACTUALIZA DATOS DE TAX 
 if (isset($_REQUEST['add'])) {
+
 	
 $value  = array(
 'taxid' => $_POST['idtax'],
@@ -308,38 +362,63 @@ foreach ($res as $Comp_Info) {
 //LLAMO LOS VALORES ACTUALES DE LOS DATOS DE VENTA
 $saleRes= $this->model->Get_sales_conf_Info();
 
+$table .= '
+          <div class="col-lg-3"></div>
+          <div class="col-lg-6">
+          <fieldset>
+          <table class="table table-bordered" cellspacing="0">
+           <thead>
+				<tr>
+				<th>Default</th>
+				<th>ID</th>
+				<th>Rate</th>
+				<th>Borrar</th>
+				</tr>
+           </thead>
+           <tbody>';
+
 foreach ($saleRes as $sale) {
 	$sale = json_decode($sale);
 
 	$tax =  $sale->{'taxid'};
 	$porc = $sale->{'rate'};
+	$def =  $sale->{'DEFAULT'};
 
-	$table .= '<div class="col-lg-1"></div>
-	            <div class="col-lg-4">
-	             <input type="text" class="form-control"  value="'.$tax.'" disabled/> 
-               </div>
-               <div class="col-lg-4">
-	             <input type="text" class="form-control"  value="'.$porc.'" disabled/> 
-               </div>
-               <div class="col-lg-2">
-	             <input type="button" onclick="del_tax('.$sale->{'id'}.');" value="Borrar" class="btn btn-primary  btn-block text-lef"  />
-               </div><div class="col-lg-12"></div>';
+	 $check = ''; 
+
+	if($def==1){
+
+       $check = 'checked'; 
+
+	}
+
+	$TAX_ID= "'".$sale->{'taxid'}."'";
+
+	$table .= '	<tr>
+					<td><input type="CHECKBOX"  class="radio" value="1" name="DEFTAX[1][]" onclick="set_default('.$TAX_ID.');"  '.$check.' /></td>
+					<td>'.$tax.'</td>
+					<td class="numb">'.$porc.'%</td>
+					<td><i style="color:red;" class="fa fa-trash-o" onclick="del_tax('.$sale->{'id'}.');" ></i></td>
+					<tr>';
 }
 
-
+$table .= '</tbody></table> 
+           </fieldset>
+           </div>
+           <div class="col-lg-3"></div>';
 
 
 //RECUPERO INFO DE DETALLES DE FACTURACION
 $DIV_LINE = $this->model->Query_value('FAC_DET_CONF','DIV_LINE','WHERE ID_compania="'.$this->model->id_compania.'"');
 
-if($DIV_LINE){
+	if($DIV_LINE){
 
-if($DIV_LINE=='1'){ $DIV_LINE_CK = 'checked'; }else{ $DIV_LINE_CK = '';  }
+		if($DIV_LINE=='1'){ $DIV_LINE_CK = 'checked'; }else{ $DIV_LINE_CK = '';  }
 
-}else{
+	}else{
 
-$DIV_LINE_CK = '';	
-}
+		$DIV_LINE_CK = '';	
+	}
 
 
 $NO_LINES = $this->model->Query_value('FAC_DET_CONF','NO_LINES','WHERE ID_compania="'.$this->model->id_compania.'"');
@@ -368,7 +447,7 @@ unset($_POST);
 <div class="page col-xs-12">
 
 <!--INI DIV ERRO-->
-<div id="ERROR" class="alert alert-danger"></div>
+<div id="ERROR" ></div>
 <!--INI DIV ERROR-->
 
 
@@ -563,7 +642,7 @@ unset($_POST);
 	       
 			<div class="col-lg-4">
 			<fieldset>
-			<label>No. de lineas </label><input type="text" name="fact_no_line" value="<?php echo $NO_LINES; ?>" />&nbsp<p class='help-block'>Determina el No. de Lineas para las tablas con campos de entrada. Maximo 9999 lineas</p>
+			<label>No. de lineas </label><input class="numb" type="text" name="fact_no_line" value="<?php echo $NO_LINES; ?>" />&nbsp<p class='help-block'>Determina el No. de Lineas para las tablas con campos de entrada. Maximo 9999 lineas</p>
 	        </fieldset> 
 			</div>
 

@@ -5082,6 +5082,19 @@ echo '<script>var table =  $("#products").dataTable({
 
 }
 
+public function SET_TAX_DEFUALT($ID){
+
+
+$sql = 'UPDATE  `sale_tax` SET  `DEFAULT` = "0"; ';
+$this->model->Query($sql);
+
+
+$sql = 'UPDATE  `sale_tax` SET  `DEFAULT` = "1" where taxid="'.$ID.'";';
+$this->model->Query($sql);
+
+
+}
+
 // -WARNING- la llave debajo de este comentario es la que cierra la clase. NO BORRAR NI MODIFICAR.
 }
 
