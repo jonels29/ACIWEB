@@ -509,6 +509,15 @@ Products_Exp.Description,
 Products_Exp.UnitMeasure,
 Products_Exp.QtyOnHand,
 Products_Exp.Price1,
+Products_Exp.Price2,
+Products_Exp.Price3,
+Products_Exp.Price4,
+Products_Exp.Price5,
+Products_Exp.Price6,
+Products_Exp.Price7,
+Products_Exp.Price8,
+Products_Exp.Price9,
+Products_Exp.Price10,
 Products_Exp.LastUnitCost
 FROM Products_Exp 
 inner join Prod_Lotes on Prod_Lotes.ProductID=Products_Exp.ProductID
