@@ -23,3 +23,7 @@ SE AGREGAN CAMBIOS A LA TABLA DE SAX_USER
 SE AGREGA CAMPOS A LA TABLA DE sale_tax 
 
    ALTER TABLE  `sale_tax` ADD  `DEFAULT` INT( 1 ) NOT NULL DEFAULT  '0' AFTER  `rate` ;
+
+cambio de primary key en tabla de Sales Representative
+
+  ALTER TABLE  `Sales_Representative_Exp` ADD PRIMARY KEY (  `SalesRepID` ,  `ID_compania` ) ;
