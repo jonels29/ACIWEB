@@ -134,13 +134,23 @@ while(i <= cantLineas){
 
       }
 
-$('#table_req').append('</tbody></table>');
+    $('#table_req').append('</tbody></table>');
 
       set_selectItemStyle(); 
 
       }
 
      });
+
+}
+
+
+if(chk==2){ //DEFAUL TAMPLATE
+$('#tpl_default').html(''); 
+
+var required = "<"+"?"+"php  required URL.'/view/Presu_TPL/tpl_puma.html'; ?>";
+
+$('#tpl_default').html(required); 
 
 }
 

@@ -420,3 +420,51 @@
 [27-Jun-2017 01:50:40 Etc/GMT] PHP Parse error:  syntax error, unexpected '}' in /home/daoutqw3/public_html/DEMO/DEV/application/controller/bridge_query.php on line 4971
 [27-Jun-2017 01:54:22 Etc/GMT] PHP Parse error:  syntax error, unexpected '}' in /home/daoutqw3/public_html/DEMO/DEV/application/controller/bridge_query.php on line 4971
 [27-Jun-2017 02:20:10 Etc/GMT] PHP Parse error:  syntax error, unexpected '}' in /home/daoutqw3/public_html/DEMO/DEV/application/controller/bridge_query.php on line 4972
+[04-Jul-2017 22:02:14 Etc/GMT] PHP Fatal error:  Method name must be a string in /home/daoutqw3/public_html/DEMO/ACIWEB/application/view/operaciones/ges_tpl_presupuesto.php on line 92
+[04-Jul-2017 22:02:53 Etc/GMT] PHP Fatal error:  Call to undefined method Spreadsheet_Excel_Reader::bgColor() in /home/daoutqw3/public_html/DEMO/ACIWEB/application/view/operaciones/ges_tpl_presupuesto.php on line 92
+[04-Jul-2017 22:12:32 Etc/GMT] PHP Fatal error:  Call to undefined method Spreadsheet_Excel_Reader::bgColor() in /home/daoutqw3/public_html/DEMO/ACIWEB/application/view/operaciones/ges_tpl_presupuesto.php on line 92
+[06-Jul-2017 16:32:58 Etc/GMT] PHP Parse error:  syntax error, unexpected ';' in /home/daoutqw3/public_html/DEMO/ACIWEB/application/controller/bridge_query.php on line 5092
+[06-Jul-2017 16:33:58 Etc/GMT] PHP Parse error:  syntax error, unexpected ';' in /home/daoutqw3/public_html/DEMO/ACIWEB/application/controller/bridge_query.php on line 5092
+[10-Jul-2017 21:44:12 Etc/GMT] PHP Notice:  Undefined variable: pass in /home/daoutqw3/public_html/DEMO/ACIWEB/application/controller/API.php on line 8
+[10-Jul-2017 21:44:12 Etc/GMT] PHP Fatal error:  Call to a member function Query_value() on a non-object in /home/daoutqw3/public_html/DEMO/ACIWEB/application/controller/API.php on line 10
+[10-Jul-2017 21:50:12 Etc/GMT] PHP Notice:  Undefined index: USER in /home/daoutqw3/public_html/DEMO/ACIWEB/application/controller/API.php on line 8
+[10-Jul-2017 21:50:12 Etc/GMT] PHP Notice:  Undefined index: PASS in /home/daoutqw3/public_html/DEMO/ACIWEB/application/controller/API.php on line 9
+[10-Jul-2017 21:50:12 Etc/GMT] PHP Fatal error:  Call to a member function Query_value() on a non-object in /home/daoutqw3/public_html/DEMO/ACIWEB/application/controller/API.php on line 13
+[10-Jul-2017 21:51:10 Etc/GMT] PHP Notice:  Undefined index: USER in /home/daoutqw3/public_html/DEMO/ACIWEB/application/controller/API.php on line 8
+[10-Jul-2017 21:51:10 Etc/GMT] PHP Notice:  Undefined index: PASS in /home/daoutqw3/public_html/DEMO/ACIWEB/application/controller/API.php on line 9
+[10-Jul-2017 21:51:10 Etc/GMT] PHP Fatal error:  Call to a member function Query_value() on a non-object in /home/daoutqw3/public_html/DEMO/ACIWEB/application/controller/API.php on line 13
+[10-Jul-2017 21:53:04 Etc/GMT] PHP Fatal error:  Call to a member function Query_value() on a non-object in /home/daoutqw3/public_html/DEMO/ACIWEB/application/controller/API.php on line 14
+[10-Jul-2017 21:54:10 Etc/GMT] PHP Fatal error:  Call to a member function Query() on a non-object in /home/daoutqw3/public_html/DEMO/ACIWEB/application/controller/API.php on line 14
+[10-Jul-2017 22:01:13 Etc/GMT] PHP Fatal error:  Call to undefined method API::Query() in /home/daoutqw3/public_html/DEMO/ACIWEB/application/controller/API.php on line 14
+[10-Jul-2017 22:04:49 Etc/GMT] PHP Fatal error:  Call to undefined method API::index() in /home/daoutqw3/public_html/DEMO/ACIWEB/application/core/application.php on line 56
+[10-Jul-2017 22:17:04 Etc/GMT] PHP Fatal error:  Call to undefined method API::index() in /home/daoutqw3/public_html/DEMO/ACIWEB/application/core/application.php on line 56
+[10-Jul-2017 22:18:35 Etc/GMT] PHP Fatal error:  Call to undefined method API::index() in /home/daoutqw3/public_html/DEMO/ACIWEB/application/core/application.php on line 56
+[10-Jul-2017 22:25:04 Etc/GMT] PHP Notice:  Undefined property: Application::$url_controlle in /home/daoutqw3/public_html/DEMO/ACIWEB/application/core/application.php on line 24
+[10-Jul-2017 22:31:51 Etc/GMT] PHP Fatal error:  Call to undefined method API::index() in /home/daoutqw3/public_html/DEMO/ACIWEB/application/core/application.php on line 55
+[10-Jul-2017 22:40:01 Etc/GMT] PHP Fatal error:  Call to undefined method API::index() in /home/daoutqw3/public_html/DEMO/ACIWEB/application/core/application.php on line 29
+[10-Jul-2017 22:42:22 Etc/GMT] PHP Notice:  Undefined index: USER in /home/daoutqw3/public_html/DEMO/ACIWEB/application/controller/API.php on line 11
+[10-Jul-2017 22:42:22 Etc/GMT] PHP Notice:  Undefined index: PASS in /home/daoutqw3/public_html/DEMO/ACIWEB/application/controller/API.php on line 12
+[10-Jul-2017 22:42:22 Etc/GMT] PHP Fatal error:  Call to a member function Query() on a non-object in /home/daoutqw3/public_html/DEMO/ACIWEB/application/controller/API.php on line 16
+[10-Jul-2017 22:43:15 Etc/GMT] PHP Fatal error:  Cannot redeclare class Controller in /home/daoutqw3/public_html/DEMO/ACIWEB/application/core/controller.php on line 5
+[10-Jul-2017 22:45:32 Etc/GMT] PHP Fatal error:  Cannot redeclare class Controller in /home/daoutqw3/public_html/DEMO/ACIWEB/application/core/controller.php on line 5
+[10-Jul-2017 22:45:48 Etc/GMT] PHP Fatal error:  Call to a member function Query() on a non-object in /home/daoutqw3/public_html/DEMO/ACIWEB/application/controller/API.php on line 16
+[10-Jul-2017 22:50:08 Etc/GMT] PHP Fatal error:  Class 'Model' not found in /home/daoutqw3/public_html/DEMO/ACIWEB/application/controller/API.php on line 11
+[10-Jul-2017 22:50:17 Etc/GMT] PHP Fatal error:  Call to a member function Query() on a non-object in /home/daoutqw3/public_html/DEMO/ACIWEB/application/controller/API.php on line 18
+[10-Jul-2017 22:50:51 Etc/GMT] PHP Notice:  Undefined property: API::$controller in /home/daoutqw3/public_html/DEMO/ACIWEB/application/controller/API.php on line 18
+[10-Jul-2017 22:50:51 Etc/GMT] PHP Notice:  Trying to get property of non-object in /home/daoutqw3/public_html/DEMO/ACIWEB/application/controller/API.php on line 18
+[10-Jul-2017 22:50:51 Etc/GMT] PHP Fatal error:  Call to a member function Query() on a non-object in /home/daoutqw3/public_html/DEMO/ACIWEB/application/controller/API.php on line 18
+[10-Jul-2017 22:53:04 Etc/GMT] PHP Notice:  Undefined property: API::$controller in /home/daoutqw3/public_html/DEMO/ACIWEB/application/controller/API.php on line 18
+[10-Jul-2017 22:53:04 Etc/GMT] PHP Notice:  Trying to get property of non-object in /home/daoutqw3/public_html/DEMO/ACIWEB/application/controller/API.php on line 18
+[10-Jul-2017 22:53:04 Etc/GMT] PHP Fatal error:  Call to a member function Query() on a non-object in /home/daoutqw3/public_html/DEMO/ACIWEB/application/controller/API.php on line 18
+[10-Jul-2017 22:53:08 Etc/GMT] PHP Notice:  Undefined property: API::$controller in /home/daoutqw3/public_html/DEMO/ACIWEB/application/controller/API.php on line 18
+[10-Jul-2017 22:53:08 Etc/GMT] PHP Notice:  Trying to get property of non-object in /home/daoutqw3/public_html/DEMO/ACIWEB/application/controller/API.php on line 18
+[10-Jul-2017 22:53:08 Etc/GMT] PHP Fatal error:  Call to a member function Query() on a non-object in /home/daoutqw3/public_html/DEMO/ACIWEB/application/controller/API.php on line 18
+[10-Jul-2017 22:53:30 Etc/GMT] PHP Notice:  Undefined property: API::$controller in /home/daoutqw3/public_html/DEMO/ACIWEB/application/controller/API.php on line 18
+[10-Jul-2017 22:53:30 Etc/GMT] PHP Notice:  Trying to get property of non-object in /home/daoutqw3/public_html/DEMO/ACIWEB/application/controller/API.php on line 18
+[10-Jul-2017 22:53:30 Etc/GMT] PHP Fatal error:  Call to a member function Query() on a non-object in /home/daoutqw3/public_html/DEMO/ACIWEB/application/controller/API.php on line 18
+[10-Jul-2017 22:53:39 Etc/GMT] PHP Fatal error:  Call to a member function Query() on a non-object in /home/daoutqw3/public_html/DEMO/ACIWEB/application/controller/API.php on line 18
+[10-Jul-2017 22:55:16 Etc/GMT] PHP Fatal error:  Call to a member function Query() on a non-object in /home/daoutqw3/public_html/DEMO/ACIWEB/application/controller/API.php on line 18
+[10-Jul-2017 22:55:19 Etc/GMT] PHP Fatal error:  Call to a member function Query() on a non-object in /home/daoutqw3/public_html/DEMO/ACIWEB/application/controller/API.php on line 18
+[10-Jul-2017 23:45:17 Etc/GMT] PHP Fatal error:  Call to a member function Query() on a non-object in /home/daoutqw3/public_html/DEMO/ACIWEB/application/controller/API.php on line 18
+[10-Jul-2017 23:45:55 Etc/GMT] PHP Fatal error:  Call to a member function Query() on a non-object in /home/daoutqw3/public_html/DEMO/ACIWEB/application/controller/API.php on line 18
+[10-Jul-2017 23:54:39 Etc/GMT] PHP Fatal error:  Call to a member function Query() on a non-object in /home/daoutqw3/public_html/DEMO/ACIWEB/application/controller/API.php on line 22

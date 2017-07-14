@@ -57,14 +57,16 @@ var table = $("#table_tpl").DataTable({
      </form>
 
 <div class="separador col-lg-12"></div>
-<table id="table_tpl" class='table table-bordered table-striped responsive" cellspacing="0"'>
-<tbody>
+
 <?php
 //INI LECTURA DE ARCHIVO EXCEL
 
 $reader= new Spreadsheet_Excel_Reader();
 
-
+$table = '';
+$table_to_save = '';
+$table .= "<table id='table_tpl' class='table table-bordered table-striped responsive' cellspacing='0'><tbody>";
+$table_to_save  .= "<table id='table_tpl' class='table table-bordered table-striped responsive' cellspacing='0'><tbody>";
 
 if($_FILES["price_file"]["size"] > 0)
 {
@@ -81,21 +83,24 @@ $filename=$_FILES["price_file"]["tmp_name"];
 				$i=1;
 				 while ($i<=$data['numRows']){
 	
-				 	echo '<tr>';
+				 	$table .=  '<tr>';
+				 	$table_to_save .=  '<tr>'."\xA";
 
 				 	foreach ($data['cells'][$i] as $KEY => $row) {
 				 
 				      if($row!=''){
 
-					   echo '<td contenteditable style="'.$reader->style($i,$KEY,$sheet=0,'').' ; " >'.utf8_encode($row).'  </td>';
-
+					   $table .=  '<td contenteditable style="'.$reader->style($i,$KEY,$sheet=0,'').' ; " >'.utf8_encode($row).'  </td>';
+                       $table_to_save .= '<td >'.utf8_encode($row).'  </td>'."\xA";
 				      }else{
 
-                       echo '<td ccontenteditable style="'.$reader->style($i,$KEY,$sheet=0,'').' ; "></td>';
+                       $table .=  '<td ></td>';
+                       $table_to_save .=  '<td></td>'."\xA";
 
 				      } 
 				 	}
-				   echo '</tr>';
+				   $table .=  '</tr>';
+				   $table_to_save .=  '</tr>'."\xA";
 
 				  $i += 1;
 				}
@@ -103,17 +108,20 @@ $filename=$_FILES["price_file"]["tmp_name"];
 			}
 
 }
+
+$table .= "</tbody></table>";
+$table_to_save .=  "</tbody></table>"."\xA";
+
+echo $table;
+
+file_put_contents('/home/daoutqw3/public_html/DEMO/ACIWEB/public/tpl_puma.html', $table_to_save);
+
+
+
 ?>
-</tbody>
-</table>
-
-
-
-
-
-
 	<!--END contenido -->
 	</div>
 </div>
 </div>
 </div>
+

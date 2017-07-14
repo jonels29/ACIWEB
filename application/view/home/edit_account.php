@@ -425,7 +425,7 @@ self.location="'.URL.'index.php?url=home/edit_account/'.$id.'";
 <?PHP if ($mod_stoc_CK  == 'checked') { ?><input type="CHECKBOX" name="sto_chk" <?php echo $STO_CK;  ?> />&nbsp<label>Gestionar Ubicaciones</label><br><?php } ?>
 <?PHP if ($mod_rept_CK  == 'checked') { ?><input type="CHECKBOX" name="rep_chk" <?php echo $REP_CK;  ?> />&nbsp<label>Gestionar Reportes</label><br><?php } ?>
 <?PHP if ($mod_pro_CK   == 'checked') { ?><input type="CHECKBOX" name="pro_chk" <?php echo $PRO_CK;  ?> />&nbsp<label>Crear/Modificar presupuesto</label><br><?php } ?>
-<?PHP if ($mod_pro_CK   == 'checked') { ?><input type="CHECKBOX" name="tpl_chk" <?php echo $TPL_CK;  ?> />&nbsp<label>Crear/Modificar Modelos de presupuesto</label><br><?php } ?>
+<?PHP if ($mod_pro_CK   == 'checked' AND $this->model->active_user_role=='admin') { ?><input type="CHECKBOX" name="tpl_chk" <?php echo $TPL_CK;  ?> />&nbsp<label>Crear Modelos de presupuesto</label><br><?php } ?>
 </fieldset>
 </div>
 
