@@ -120,13 +120,13 @@ while(i <= cantLineas){
       var line_table_req = '<tr>'+reglon+
 
       '<td width="15%" class="rowtable_req " contenteditable id="desc'+i+'"  ></td>'+
-      '<td width="15%" class="rowtable_req" contenteditable id="nota'+i+'"  ></td>'+
-      '<td width="3%"  class="rowtable_req" contenteditable id="unit'+i+'"></td>'+
-      '<td width="3%"  class="rowtable_req" id="taxable'+i+'"></td>'+
-      '<td width="3%"  class="rowtable_req  numb" id="stock'+i+'"></td>'+
-      '<td width="5%"  class="rowtable_req  numb" onfocusout="recalcular('+i+');" contenteditable id="qty'+i+'"></td>'+
+      '<td width="15%" class="rowtable_req"  contenteditable id="nota'+i+'"  ></td>'+
+      '<td width="3%"  class="rowtable_req"  contenteditable id="unit'+i+'"></td>'+
+      '<td width="3%"  class="rowtable_req"  id="taxable'+i+'"></td>'+
+      '<td width="3%"  class="rowtable_req   numb" id="stock'+i+'"></td>'+
+      '<td width="5%"  class="rowtable_req   numb" onfocusout="recalcular('+i+');" contenteditable id="qty'+i+'"></td>'+
       '<td width="5%" '+bg_color+'  class="rowtable_req  numb" '+editable+' onfocusout="calculate('+i+');" id="unitprice'+i+'" ></td>'+
-      '<td width="5%"  class="rowtable_req  numb" id="total'+i+'" ></td></tr>' ;
+      '<td width="5%"  class="rowtable_req  numb" $i.></td></tr>' ;
 
        i++
 
@@ -146,11 +146,11 @@ while(i <= cantLineas){
 
 
 if(chk==2){ //DEFAUL TAMPLATE
-$('#tpl_default').html(''); 
 
-var required = "<"+"?"+"php  required URL.'/view/Presu_TPL/tpl_puma.html'; ?>";
+  //$('#tpl_default').attr('w3-include-html',''); 
+  $('#tpl_default').attr('w3-include-html','tpl_puma.html'); 
 
-$('#tpl_default').html(required); 
+  w3.includeHTML();
 
 }
 

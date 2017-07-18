@@ -8,11 +8,11 @@ Cambio tipo de variable a campos de dicha tabla:
 
 	ALTER TABLE  `MOD_MENU_CONF` CHANGE  `ID`  `ID` INT( 11 ) NOT NULL AUTO_INCREMENT ,
 	CHANGE  `mod_sales`  `mod_sales` INT( 1 ) NOT NULL DEFAULT  '0',
-	CHANGE  `mod_fact`  `mod_fact` INT( 1 ) NOT NULL DEFAULT  '0',
+	CHANGE  `mod_fact`   `mod_fact` INT( 1 ) NOT NULL DEFAULT  '0',
 	CHANGE  `mod_invt`  `mod_invt` INT( 1 ) NOT NULL DEFAULT  '0',
-	CHANGE  `mod_rept`  `mod_rept` INT( 1 ) NOT NULL DEFAULT  '0',
+	CHANGE  `mod_rept`   `mod_rept` INT( 1 ) NOT NULL DEFAULT  '0',
 	CHANGE  `mod_stock`  `mod_stock` INT( 1 ) NOT NULL DEFAULT  '0',
-	CHANGE  `mod_pro`  `mod_pro` INT( 11 ) NOT NULL DEFAULT  '0';
+	CHANGE  `mod_pro`    `mod_pro` INT( 11 ) NOT NULL DEFAULT  '0';
 
 
 SE AGREGAN CAMBIOS A LA TABLA DE SAX_USER 
