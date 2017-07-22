@@ -56,6 +56,7 @@
 <script  src="<?php echo URL; ?>js/dataTables.rowReorder.min.js" ></script>
 <script  src="<?php echo URL; ?>js/dataTables.responsive.min.js" ></script>
 
+<script src="https://www.w3schools.com/lib/w3.js"></script>
 
 <!-- SELECT2  JS --> 
 <script src="<?php echo URL; ?>js/select2/select2.min.js"></script>

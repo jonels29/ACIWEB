@@ -146,12 +146,10 @@ while(i <= cantLineas){
 
 
 if(chk==2){ //DEFAUL TAMPLATE
-$('#tpl_default').html(''); 
 
-var required = "<"+"?"+"php  required URL.'/view/Presu_TPL/tpl_puma.html'; ?>";
-
-$('#tpl_default').html(required); 
-
+$('#tpl_default').attr('w3-include-html',''); 
+$('#tpl_default').attr('w3-include-html','tpl_puma.html'); 
+w3.includeHTML();
 }
 
 
