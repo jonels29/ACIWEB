@@ -71,6 +71,7 @@ $table_to_save  .= "<table id='table_tpl' class='table table-bordered table-stri
 if($_FILES["price_file"]["size"] > 0)
 {
 
+
 $filename=$_FILES["price_file"]["tmp_name"];
 	
 			//$reader->setUTFEncoder('iconv');
@@ -82,24 +83,70 @@ $filename=$_FILES["price_file"]["tmp_name"];
 	        
 				$i=1;
 				 while ($i<=$data['numRows']){
+
+					 	if($i==1){
+
+					 		$table_to_save .= '<thead>';
+
+
+					 	}elseif ($i==2) {
+
+					 		$table_to_save .= '</thead>';
+
+					 	}
 	
-				 	$table .=  '<tr>';
-				 	$table_to_save .=  '<tr>'."\xA";
+	     		 	  $table_to_save .=  '<tr>'."\xA";  
 
-				 	foreach ($data['cells'][$i] as $KEY => $row) {
-				 
-				      if($row!=''){
 
-					   $table .=  '<td contenteditable style="'.$reader->style($i,$KEY,$sheet=0,'').' ; " >'.utf8_encode($row).'  </td>';
-                       $table_to_save .= '<td >'.utf8_encode($row).'  </td>'."\xA";
-				      }else{
+				 	foreach ($data['cells'][$i] as $KEY => $CellVal) {
+						 
+                      if($CellVal){
 
-                       $table .=  '<td ></td>';
-                       $table_to_save .=  '<td></td>'."\xA";
 
-				      } 
+						      	if($i==1){
+
+						 		$table_to_save .= '<th >'.utf8_encode($CellVal).'  </th>'."\xA"; //HEADER
+
+
+						 	    }else{
+
+
+									switch ($KEY) {
+
+										case 1:
+										$table_to_save .= '<td width="10%"  contenteditable >'.utf8_encode($CellVal).'  </td>'."\xA";
+											break;
+									    case 2:
+										$table_to_save .= '<td width="15%"  contenteditable >'.utf8_encode($CellVal).'  </td>'."\xA";
+											break;
+										case 3:
+										$table_to_save .= '<td width="15%"  contenteditable >'.utf8_encode($CellVal).'  </td>'."\xA";
+											break;
+										case 4:
+										$table_to_save .= '<td width="3%"  contenteditable >'.utf8_encode($CellVal).'  </td>'."\xA";
+											break;
+									    case 5:
+										$table_to_save .= '<td width="3%"  class="numb" contenteditable >'.utf8_encode($CellVal).'  </td>'."\xA";
+											break;
+										case 6:
+										$table_to_save .= '<td width="5%"  class="numb" contenteditable onfocusout="recalcular('.$i.');" id="qty'.$i.'" >'.utf8_encode($CellVal).'  </td>'."\xA";
+										    break;
+										case 7:
+										$table_to_save .= '<td width="5%"  class="numb" contenteditable onfocusout="calculate('.$i.');" id="unitprice'.$i.'">'.utf8_encode($CellVal).'  </td>'."\xA";
+											break;
+									    case 8:
+											$table_to_save .= '<td width="5%"  class="numb" contenteditable id="total'.$i.'" >'.utf8_encode($CellVal).'  </td>'."\xA";
+											break;
+
+									}
+
+
+						 	    }
+
+		                }     
+
 				 	}
-				   $table .=  '</tr>';
+
 				   $table_to_save .=  '</tr>'."\xA";
 
 				  $i += 1;
@@ -109,13 +156,11 @@ $filename=$_FILES["price_file"]["tmp_name"];
 
 }
 
-$table .= "</tbody></table>";
 $table_to_save .=  "</tbody></table>"."\xA";
 
-echo $table;
+echo $table_to_save;
 
 file_put_contents('/home/daoutqw3/public_html/DEMO/ACIWEB/public/tpl_puma.html', $table_to_save);
-
 
 
 ?>
