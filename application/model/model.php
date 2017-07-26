@@ -244,6 +244,22 @@ $insert = $this->Query($query);
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////
+
+public function read_db_error(){
+    $string = file_get_contents("LOG_ERROR/TEMP_LOG.json");
+    $json_a = json_decode($string, true);
+    $R_ERRORS = '';
+
+    $R_ERRORS .= $json_a->{'ERROR'}; 
+
+
+
+    file_put_contents("LOG_ERROR/TEMP_LOG.json",''); //LIMPIO EL ARCHIVO
+
+   return $R_ERRORS ;
+
+}
+
     /**
      * delete
      */

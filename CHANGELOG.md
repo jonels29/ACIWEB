@@ -27,3 +27,15 @@ SE AGREGA CAMPOS A LA TABLA DE sale_tax
 cambio de primary key en tabla de Sales Representative
 
     ALTER TABLE  `Sales_Representative_Exp` ADD PRIMARY KEY (  `SalesRepID` ,  `ID_compania` ) ;
+	
+
+Creacion de tablas para modulo de presupuesto
+
+	CREATE TABLE `QUO_TEMP_HEADER` (
+		`quo_templateID` INT(10) NOT NULL,
+		`quotation_name` VARCHAR(40) NOT NULL,
+		`ID_compania` BIGINT(20) NOT NULL,
+		`status` INT(5) NOT NULL,
+		`LAST_CHANGE` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+		INDEX `Index 1` (`quo_templateID`)
+		);
